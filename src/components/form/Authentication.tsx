@@ -1,0 +1,54 @@
+import { useFormValidation } from "../../hooks/useFormValidatioin";
+import { FormProps } from "../../models/zod";
+import { InputProps } from "../../models/typescript";
+import { Grid, TextField, Typography, Button, Box, Link } from "@mui/material";
+import { Google } from "@mui/icons-material";
+import XIcon from '@mui/icons-material/X';
+
+export const AuthenticationForm = ({ inputs, formType }: { inputs: InputProps[], formType: string }) => {
+    const { register, handleSubmit, onSubmit, firebaseErrror, errors, handleGoogle } = useFormValidation(formType);
+    const isRegister = formType === "register" ? true : false
+    return (
+        <>
+            <Grid container justifyContent="center" alignItems="center" sx={{ height: "100vh", px: {
+                xs: 2,
+                lg:0
+            } }}>
+                <Grid item xs={12} sm={8} md={6} lg={4}>
+                    <Box>
+                        <Box sx={{ display: "flex", justifyContent: "center"}}>
+                            <XIcon fontSize="large" />
+                        </Box>
+                        <Box component="form" sx={{ display: "grid", gap: 2 }} onSubmit={handleSubmit(onSubmit)}>
+                            <Typography color="error">{firebaseErrror}</Typography>
+                            {inputs.map(input => {
+                                return (
+                                    <div key={input.name}>
+                                        <TextField
+                                            color="info"
+                                            type={input.type}
+                                            label={input.placeholder}
+                                            variant="outlined"
+                                            fullWidth
+                                            helperText={errors[input.name as keyof FormProps] && errors[input.name as keyof FormProps]?.message}
+                                            {...register(input.name as keyof FormProps)}
+                                        />
+                                    </div>
+                                )
+                            })}
+                            <Button type="submit" variant="contained" color={"info"} fullWidth style={{ marginTop: '10px' }}>
+                                {formType.toUpperCase()}
+                            </Button>
+                            <Button onClick={handleGoogle} variant="outlined" sx={{ color: "primary.light"}} startIcon={<Google color="success" />}>
+                                Continue with Google
+                            </Button>
+                            <Link sx={{ color: "primary.light"}} textAlign="center" href={isRegister ? "/login" : "register" } variant="body2">
+                                {isRegister ? "Already have an account? Login" : "Don't have an account? Register"}
+                            </Link>
+                        </Box>
+                    </Box>
+                </Grid>
+            </Grid>
+        </>
+    )
+}
