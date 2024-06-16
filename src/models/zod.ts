@@ -11,4 +11,10 @@ export const formSchema = z.object({
     path: ['confirm_password']
 });
 
+export const tweetSchema = z.object({
+    user_id: z.string().min(1, { message: "User Id must not be empty"}),
+    content: z.string().min(1, { message: "Content must not be empty"}),
+    timeStamp: z.date().optional()
+})
+
 export type FormProps = z.infer<typeof formSchema>
