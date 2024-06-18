@@ -20,6 +20,12 @@ Not Done
           Basic Design ✅
         </li>
         <li>
+            Loading ✅
+        </li>
+        <li>
+            Error handling ✅
+        </li>
+        <li>
             Basic Firebase Configuration ✅
         </li>
       </ul>
