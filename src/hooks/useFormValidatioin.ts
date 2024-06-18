@@ -9,6 +9,8 @@ export const useFormValidation = (formType : string) => {
     const { db,setDoc, doc, getDoc } = useFireStore();
     const { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, provider, signInWithPopup } = useFirebaseAuth();
     const [firebaseErrror, setFirebaseError] = useState<string>("");
+    const [loading, setLoading] = useState(false);
+    const [googleLoading, setGoogleLoading] = useState(false)
 
     const navigate = useNavigate();
     
@@ -18,6 +20,7 @@ export const useFormValidation = (formType : string) => {
 
     const onSubmit : SubmitHandler<FormProps> = async (data) => {
         setFirebaseError("");
+        setLoading(true)
         try {
             const result = formType == "register" ? await createUserWithEmailAndPassword(auth, data.email, data.password) : await signInWithEmailAndPassword(auth, data.email, data.password); 
             if (formType === "register") {
@@ -34,10 +37,14 @@ export const useFormValidation = (formType : string) => {
             navigate("/");
         } catch(error : any) {
             setFirebaseError(error?.message || "Invalid credentials")
+        } finally {
+            setLoading(false)
         }
     };
 
     const handleGoogle = async () => {
+        setFirebaseError("");
+        setGoogleLoading(true)
         try {
             const result = await signInWithPopup(auth, provider);
             const { uid, email, displayName } = result.user;
@@ -55,8 +62,10 @@ export const useFormValidation = (formType : string) => {
             }
             navigate("/");
         } catch(error : any) {
-            setFirebaseError(error?.message || "Invalid credentials");
-            console.log(error)
+            if (error?.message === "Firebase: Error (auth/cancelled-popup-request)." || error?.message === "Firebase: Error (auth/popup-closed-by-user).") return setFirebaseError("")
+            setFirebaseError(error?.message)
+        } finally {
+            setGoogleLoading(false)
         }
     }
 
@@ -66,6 +75,8 @@ export const useFormValidation = (formType : string) => {
         handleSubmit,
         handleGoogle,
         onSubmit,
+        loading,
+        googleLoading,
         errors
     }
 }
