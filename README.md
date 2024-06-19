@@ -10,6 +10,12 @@ Not Done
 
 ###
 
+
+# Next Task
+<ul>
+  <li>Polish Codes</li>
+</ul>
+
 # Features
 
 <ul>
@@ -56,8 +62,3 @@ Not Done
 </ul>
 
 
-
-# Next Task
-<ul>
-  <li>Polish Codes</li>
-</ul>
