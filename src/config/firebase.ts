@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { addDoc, getFirestore, collection, getDoc, getDocs, doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -52,4 +53,15 @@ export const useFirebaseAuth = () => {
   }
 }
 
+// Storage
+export const useFirebaseStorage = () => {
+  const storage = getStorage();
+
+  return {
+    storage,
+    ref,
+    uploadBytes, 
+    getDownloadURL
+  }
+}
 
