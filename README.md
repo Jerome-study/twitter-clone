@@ -13,7 +13,7 @@ Not Done
 
 # Next Task
 <ul>
-  <li>Polish Codes</li>
+  <li>Put Error Handling on Tweet Composer</li>
 </ul>
 
 # Features
