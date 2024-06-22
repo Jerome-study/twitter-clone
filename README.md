@@ -13,7 +13,7 @@ Not Done
 
 # Next Task
 <ul>
-  <li>Put Error Handling on Tweet Composer</li>
+  <li>Display Users Tweet on Home Page</li>
 </ul>
 
 # Features
@@ -55,6 +55,12 @@ Not Done
             <ul>
               <li>With image ✅</li>
             </ul>
+            <li>
+              Loading ✅
+            </li>
+          <li>
+            Error handling ✅
+          </li>
         </li>
       </ul>
   </li>
