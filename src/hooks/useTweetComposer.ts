@@ -9,11 +9,13 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
     const [tweetImages, setTweetImages] = useState([])
     const [validateContent, setValidateContent] = useState("");
     const [openModal, setOpenModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("")
 
-    // Custom Hooks from Firebase
+    // Custom Hooks 
     const { doc, setDoc, collection, db, serverTimestamp } = useFireStore();
     const { storage, ref, uploadBytes, getDownloadURL } = useFirebaseStorage();
-
+    
     // Context Hook
     const { currentUser } = useAuth();
 
@@ -30,6 +32,8 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
     };
 
     const postTweet = async () => {
+        setLoading(true);
+        setError("");
         setValidateContent("");
         const tweet = {
             user_id: currentUser?.uid || "",
@@ -38,12 +42,13 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
             updatedAt: serverTimestamp(),
         }
         try {
-            const validationResult = tweetSchema.safeParse(tweet)
-            if (validationResult.error) return handleValidationErrors(validationResult.error);
-            const tweetId = doc(collection(db, 'tweets')).id;
+            const validationResult = tweetSchema.safeParse(tweet) // Validate tweet
+            if (validationResult.error) return handleValidationErrors(validationResult.error); // If theres an error in validate, display it
+            const tweetId = doc(collection(db, 'tweets')).id; // Generate custom Id from firebase
             
             let imageUrls : any = []
-
+            
+            // If theres an image store it on firebase storage
             if (tweetImages.length > 0) {
                 imageUrls = await Promise.all(
                     tweetImages.map(async (image, index) => {
@@ -52,12 +57,13 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
                         return getDownloadURL(imageRef);
                     })
                 );
-            }
+            } 
 
+            // Insert tweet on tweets collection
             await setDoc(doc(db, 'tweets', tweetId), { ...tweet, image: imageUrls });
-            if (toggleDrawer) toggleDrawer();
+            if (toggleDrawer) toggleDrawer(); // If in mobile view
         } catch (error: any) {
-            console.log(error)
+            setError("Something went wrog please try again later");
         } finally {
             setTweetContent("")
         }
@@ -78,6 +84,8 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
         validateContent,
         openModal,
         tweetContent,
+        loading,
+        error,
         handleOpenModal,
         postTweet,
         setTweetContent,

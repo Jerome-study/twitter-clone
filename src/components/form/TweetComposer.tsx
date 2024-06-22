@@ -1,10 +1,11 @@
-import { Box, TextField, IconButton, Button } from '@mui/material';
+import { Box, TextField, IconButton, Button, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ConfirmationModal } from '../Modal/Confirmation';
 import { useTweetComposer } from '../../hooks/useTweetComposer';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SendIcon from '@mui/icons-material/Send';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import { LoadingBackDrop } from '../loading/backdrop';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -19,11 +20,13 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export const TweetComposerForm = ({ toggleDrawer }: { toggleDrawer?: Function }) => {
-    const { validateContent, openModal, tweetContent, handleOpenModal, postTweet, handleImageChange, setTweetContent } = useTweetComposer({toggleDrawer})
+    const { validateContent, openModal, tweetContent, error, loading, handleOpenModal, postTweet, handleImageChange, setTweetContent } = useTweetComposer({toggleDrawer})
 
     return (
         <>
             {openModal && <ConfirmationModal openModal={openModal} handleOpenModal={handleOpenModal} action={postTweet} />}
+            { error && <Alert severity="error" sx={{ mb: 1 }}>{error}</Alert>}
+            { loading && <LoadingBackDrop /> }
             <form onSubmit={handleOpenModal}>
                 <TextField
                     fullWidth
