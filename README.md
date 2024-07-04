@@ -1,70 +1,27 @@
-
 # Twitter Clone using React JS and Firebase
 
-Doing a personal project
-
-
-
-# Status
+## Status
 Not Done
 
-###
+## Next Task
+- Polish Designs
 
+## Features
+- Authentication Page
+  - [x] Basic Design
+  - [x] Loading
+  - [x] Error handling
+  - [x] Basic Firebase Configuration
 
-# Next Task
-<ul>
-  <li>Display Users Tweet on Home Page</li>
-</ul>
+- Navigation Bar
+  - [x] Basic Design
 
-# Features
+- Home Page
+  - [x] Basic Design
+  - Tweet Composer
+    - [x] Loading
+    - [x] Error handling
+    - [x] With image
+  - [x] Current User Tweets Display
 
-<ul>
-  <li>
-    Authentication Page 
-      <ul>
-        <li>
-          Basic Design ✅
-        </li>
-        <li>
-            Loading ✅
-        </li>
-        <li>
-            Error handling ✅
-        </li>
-        <li>
-            Basic Firebase Configuration ✅
-        </li>
-      </ul>
-  </li>
-  <li>
-    Navigation Bar
-      <ul>
-        <li>
-            Basic Design ✅
-        </li>
-      </ul>
-  </li>
-  <li>
-    Home Page
-      <ul>
-        <li>
-            Basic Design ✅
-        </li>
-        <li>
-            Tweet Composer ✅
-            <ul>
-              <li>With image ✅</li>
-            </ul>
-            <li>
-              Loading ✅
-            </li>
-          <li>
-            Error handling ✅
-          </li>
-        </li>
-      </ul>
-  </li>
-  <li>Other features coming soon...</li>
-</ul>
-
-
+- Other features coming soon...
