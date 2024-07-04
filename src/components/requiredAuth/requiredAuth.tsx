@@ -30,14 +30,13 @@ export const RequiredAuth = ({ children }: { children: ReactNode }) => {
                 
                 <Box hidden sx={{
                     position: "relative",
-                    borderLeft: 1,
                     display: {
                         lg: "block"
                     },
                     height: "100vh",
                     width: "15%"
                 }}>
-                    <Box position="fixed">
+                    <Box sx={{ borderLeft:.5, height: "100vh"}} position="fixed">
                         Right Content
                     </Box>
                 </Box>
