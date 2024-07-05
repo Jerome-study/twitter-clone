@@ -3,8 +3,8 @@ import { FormProps } from "../../models/zod";
 import { InputProps } from "../../models/typescript";
 import { Grid, TextField, Button, Box, Link, Alert } from "@mui/material";
 import { Google } from "@mui/icons-material";
-import XIcon from '@mui/icons-material/X';
 import { LoadingBackDrop } from "../loading/backdrop";
+import { Logo } from "../../mui/logo";
 
 export const AuthenticationForm = ({ inputs, formType }: { inputs: InputProps[], formType: string }) => {
     const { register, handleSubmit, onSubmit, firebaseErrror, errors, handleGoogle, loading, googleLoading } = useFormValidation(formType);
@@ -18,9 +18,7 @@ export const AuthenticationForm = ({ inputs, formType }: { inputs: InputProps[],
             } }}>
                 <Grid item xs={12} sm={8} md={6} lg={4}>
                     <Box>
-                        <Box sx={{ display: "flex", justifyContent: "center"}}>
-                            <XIcon fontSize="large" />
-                        </Box>
+                        <Logo />
                         <Box component="form" sx={{ display: "grid", gap: 2 }} onSubmit={handleSubmit(onSubmit)}>
                             {firebaseErrror && <Alert severity="error">{firebaseErrror}</Alert>}
                             {inputs.map(input => {
