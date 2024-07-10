@@ -13,7 +13,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Collapse from '@mui/material/Collapse';
 import LogoutIcon from '@mui/icons-material/Logout';
-import XIcon from '@mui/icons-material/X';
+import { Logo } from '../../mui/logo';
 
 const drawerWidth = 300;
 
@@ -40,9 +40,9 @@ export const SideNavbar = ({ isMobile, isDrawerOpen, toggleDrawer } : any) => {
                 open={isDrawerOpen}
                 onClose={toggleDrawer}
             >
-                <List sx={{ px: 5}}>
-                    <ListItem sx={{ py: 0, mb: 3}}>
-                        <XIcon />
+                <List sx={{ px: { lg: 5 }}}>
+                    <ListItem >
+                        <Logo />
                     </ListItem>
                     
                     {NavList.map((text) => (
