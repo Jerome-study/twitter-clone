@@ -4,7 +4,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
-import XIcon from '@mui/icons-material/X';
+import { Logo } from '../../mui/logo';
 
 interface Props {
     window?: () => Window;
@@ -36,12 +36,11 @@ export const TopBar = ({ toggleDrawer } : any) => {
                     <Toolbar sx={{ justifyContent: 'space-between' }}>
                         <Avatar alt="Avatar" src={avatarUrl} onClick={toggleDrawer} />
                         <Box sx={{ flexGrow: 1 }} />
-                            <XIcon sx={{ mr: 2 }} />
+                            <Logo inTopBar={true} />
                         <Box sx={{ flexGrow: 1 }} />
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>
-            <Toolbar />
         </>
     )
 }

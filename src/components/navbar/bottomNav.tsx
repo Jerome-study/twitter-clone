@@ -16,9 +16,9 @@ export const BottomNavbar = () => {
         <>
             <Toolbar />
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={5}>
-                <BottomNavigation value={value} onChange={handleChange} showLabels={true}>
+                <BottomNavigation value={value} onChange={handleChange} >
                     {BottomNavlist.map((text) => (
-                        <BottomNavigationAction key={text.name} label={text.name} icon={text.icon} />
+                        <BottomNavigationAction key={text.name} icon={text.icon} />
                     ))}
                 </BottomNavigation>
             </Paper>
