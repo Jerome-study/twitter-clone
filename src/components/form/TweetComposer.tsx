@@ -1,65 +1,90 @@
-import { Box, TextField, IconButton, Button, Alert } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, TextField, IconButton, Button, Alert, Grid } from '@mui/material';
 import { ConfirmationModal } from '../Modal/Confirmation';
 import { useTweetComposer } from '../../hooks/useTweetComposer';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import SendIcon from '@mui/icons-material/Send';
-import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { LoadingBackDrop } from '../loading/backdrop';
 
-const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-});
 
 export const TweetComposerForm = ({ toggleDrawer }: { toggleDrawer?: Function }) => {
-    const { validateContent, openModal, tweetContent, error, loading, handleOpenModal, postTweet, handleImageChange, setTweetContent } = useTweetComposer({toggleDrawer})
+    const { validateContent, openModal, tweetContent, error, loading, handleOpenModal, tweetImages, postTweet, handleImageChange, setTweetContent, clearTweetForm } = useTweetComposer({ toggleDrawer })
 
     return (
         <>
             {openModal && <ConfirmationModal openModal={openModal} handleOpenModal={handleOpenModal} action={postTweet} />}
-            { error && <Alert severity="error" sx={{ mb: 1 }}>{error}</Alert>}
-            { loading && <LoadingBackDrop /> }
-            <form onSubmit={handleOpenModal}>
+            {error && <Alert severity="error" sx={{ mb: 1 }}>{error}</Alert>}
+            {loading && <LoadingBackDrop />}
+            <Box component="form" onSubmit={handleOpenModal}>
                 <TextField
                     fullWidth
                     multiline
                     value={tweetContent}
-                    rows={4}
+
                     variant="outlined"
                     placeholder="What's happening?"
                     helperText={validateContent}
                     onChange={(e) => setTweetContent(e.target.value)}
+                    sx={{
+                        "& fieldset": { border: 'none' },
+                    }}
                 />
-                <Button
-                    component="label"
-                    role={undefined}
-                    variant="contained"
-                    tabIndex={-1}
-                    startIcon={<CloudUploadIcon />}
-                    onChange={handleImageChange}
-                >
-                    Upload file
-                    <VisuallyHiddenInput type="file" multiple />
-                </Button>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                    <IconButton type="submit" color="primary">
-                        <SendIcon />
-                    </IconButton>
-                    {toggleDrawer &&
-                        <IconButton color="error" onClick={() => toggleDrawer()}>
-                            <DisabledByDefaultIcon />
+                <Box py={1}>
+                    <input
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        id="tweet-image-input"
+                        type="file"
+                        onChange={handleImageChange}
+                        multiple
+                    />
+                    <label htmlFor="tweet-image-input">
+                        <IconButton component="span" sx={{ marginRight: '8px' }}>
+                            <AddPhotoAlternateIcon />
                         </IconButton>
+                    </label>
+                    {toggleDrawer &&
+                        <Button
+                            variant="contained"
+                            color="error"
+                            sx={{ float: 'right', mr: 2, borderRadius: 5 }}
+                            onClick={() => toggleDrawer()}
+                        >
+                            CANCEL
+                        </Button>
                     }
+                    {(tweetContent || tweetImages.length > 0) &&
+                        <Button
+                            variant="contained"
+                            color="error"
+                            sx={{ float: 'right', mr: 2, borderRadius: 5 }}
+                            onClick={clearTweetForm}
+                        >
+                            CLEAR
+                        </Button>
+                    }
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{ float: 'right', mr: 2, borderRadius: 5 }}
+                        type='submit'
+                    >
+                        Tweet
+                    </Button>
                 </Box>
-            </form>
+
+
+                {tweetImages.length > 0 &&
+                    <Grid container spacing={2} px={2}>
+                        {tweetImages.map((tweetImage, index) => {
+                            return (
+                                <Grid item xs={4} lg={1.5} key={index} sx={{ mt: 2 }}>
+                                    <Box component="img" src={URL.createObjectURL(tweetImage)} alt="Uploaded" sx={{ width: "100%", maxWidth: "200px", borderRadius: '8px', marginBottom: '8px', border: "3px solid #ccc" }} />
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                }
+
+            </Box>
         </>
     )
 }

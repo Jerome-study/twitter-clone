@@ -29,6 +29,7 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
             const selectedImages: any = Array.from(e.target.files);
             setTweetImages(selectedImages);
         }
+        setTweetImages(prev => [...prev, ...tweetImages])
     };
 
     const postTweet = async () => {
@@ -65,7 +66,9 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
         } catch (error: any) {
             setError("Something went wrog please try again later");
         } finally {
-            setTweetContent("")
+            setTweetContent("");
+            setTweetImages([])
+            setLoading(false);
         }
     }
 
@@ -80,6 +83,13 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
         console.log(errors)
     };
 
+    // Clear Tweet Form and Image
+    const clearTweetForm = () => {
+        setTweetContent("");
+        setTweetImages([]);
+        setValidateContent("");
+    }
+
     return {
         validateContent,
         openModal,
@@ -89,7 +99,9 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
         handleOpenModal,
         postTweet,
         setTweetContent,
-        handleImageChange
+        tweetImages,
+        handleImageChange,
+        clearTweetForm
     }
 
 
