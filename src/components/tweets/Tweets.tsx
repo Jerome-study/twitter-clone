@@ -1,5 +1,5 @@
 import { Card, Box, Avatar, Typography, CardContent} from '@mui/material';
-import { useGetTweetsUserInfo } from '../../hooks/useGetUserInfo';
+import { useTweet } from '../../context/tweetProvider';
 import Skeleton from '@mui/material/Skeleton';
 import { TweetImages } from './TweetImages';
 import { useResponsive } from '../../hooks/useResponsive';
@@ -8,9 +8,9 @@ import { ActionComponent } from './ActionComponent';
 export const Tweets = ({ currentUserTweet }: any) => {
     const avatarUrl = 'https://via.placeholder.com/150';
     const { isMobile } = useResponsive();
-    const { userInfo, loading, error } = useGetTweetsUserInfo(currentUserTweet.user_id);
+    const { userInfo, userInfoLoading, userInfoError } = useTweet()
 
-    if (error) return <Typography>{error}</Typography>
+    if (userInfoError) return <Typography>{userInfoError}</Typography>
     const { first_name, last_name } = userInfo;
 
     return (
@@ -20,7 +20,7 @@ export const Tweets = ({ currentUserTweet }: any) => {
                     <Avatar alt="Remy Sharp" src={avatarUrl} />
                 </Box>
                 <Box sx={{ flex: 1 }}>
-                    {loading ? <Skeleton /> : <Typography variant={isMobile ? "subtitle1" : "h6"} fontWeight={900} >{first_name + " " + last_name}</Typography>}
+                    {userInfoLoading ? <Skeleton /> : <Typography variant={isMobile ? "subtitle1" : "h6"} fontWeight={900} >{first_name + " " + last_name}</Typography>}
                     <CardContent sx={{ px: 0, py: 1 }}>
                         <Typography variant={isMobile ? "subtitle2" : "subtitle1"} fontWeight={600} mb={2}>
                             {currentUserTweet.content}
