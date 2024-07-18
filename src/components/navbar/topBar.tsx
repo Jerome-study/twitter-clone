@@ -4,7 +4,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
-import { Logo } from '../../mui/logo';
+import { Logo } from '../mui/logo';
 
 interface Props {
     window?: () => Window;

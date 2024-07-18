@@ -2,7 +2,7 @@ import { Box, TextField, IconButton, Button, Alert, Grid } from '@mui/material';
 import { ConfirmationModal } from '../Modal/Confirmation';
 import { useTweetComposer } from '../../hooks/useTweetComposer';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { LoadingBackDrop } from '../loading/backdrop';
+import { LoadingBackDrop } from '../mui/loading/backdrop';
 
 
 export const TweetComposerForm = ({ toggleDrawer }: { toggleDrawer?: Function }) => {

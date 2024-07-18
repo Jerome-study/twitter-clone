@@ -3,8 +3,8 @@ import { FormProps } from "../../models/zod";
 import { InputProps } from "../../models/typescript";
 import { Grid, TextField, Button, Box, Link, Alert } from "@mui/material";
 import { Google } from "@mui/icons-material";
-import { LoadingBackDrop } from "../loading/backdrop";
-import { Logo } from "../../mui/logo";
+import { LoadingBackDrop } from "../mui/loading/backdrop";
+import { Logo } from "../mui/logo";
 
 export const AuthenticationForm = ({ inputs, formType }: { inputs: InputProps[], formType: string }) => {
     const { register, handleSubmit, onSubmit, firebaseErrror, errors, handleGoogle, loading, googleLoading } = useFormValidation(formType);

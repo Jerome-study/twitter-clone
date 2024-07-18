@@ -2,18 +2,20 @@ import { Tweets } from "../tweets/Tweets";
 import { TweetComposer } from "./TweetComposer";
 import { Box, Typography } from "@mui/material";
 import { useTweet } from "../../context/tweetProvider";
+import { useResponsive } from "../../hooks/useResponsive";
 
 export const HomeComponent = () => {
   const { currentUserTweets, tweetsLoading } = useTweet();
-  
-  if (tweetsLoading) return <Typography variant="h1" bgcolor={"white"} height={"100vh"}>Loading</Typography>
+  const { isMobile } = useResponsive();
+
+  if (tweetsLoading) return <Typography variant="h1" height={"100vh"}>Loading</Typography>
 
   return (
     <>
       <Typography
         hidden
         sx={{
-          p: 2, bgcolor: 'White', display: {
+          p: 2, display: {
             lg: 'block'
           }
         }}
@@ -23,8 +25,9 @@ export const HomeComponent = () => {
       >
         Home
       </Typography>
-      <Box sx={{ borderTop: '1px solid #ccc', borderBottom: '1px solid #ccc', bgcolor: 'White', mb: { lg: 2 } }}>
+      <Box sx={{ borderTop: '1px solid #ccc', borderBottom: '1px solid #ccc' }}>
         <TweetComposer />
+        { !isMobile && <Box py={1} bgcolor={"#ccc"}></Box>}
       </Box>
 
       {currentUserTweets?.map((currentUserTweet: any) => {
