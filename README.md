@@ -4,7 +4,7 @@
 Not Done
 
 ## Next Task
-- Polish Designs
+- Add Functionality to the Search Component
 
 ## Features
 - Authentication Page
@@ -23,5 +23,7 @@ Not Done
     - [x] Error handling
     - [x] With image
   - [x] Current User Tweets Display
-
+  - [x] Tweets action buttons design
+  - [x] Layout in Small and Large Screens finished
+  
 - Other features coming soon...
