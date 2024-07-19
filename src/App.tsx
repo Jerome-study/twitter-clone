@@ -4,28 +4,35 @@ import { UrlProps } from './models/typescript'
 import { HomePage } from './pages/home/page'
 import { LoginPage } from './pages/login/page'
 import { RegitserPage } from './pages/register/page'
+import { SetUsernamePage } from './pages/setusername/page'
 import { RequiredAuth } from './components/requiredAuth/requiredAuth'
+import { AuthLayout } from './components/Layout/AuthLayout'
 import { MuiPlayground } from './components/mui/page'
 
 const routes: UrlProps[] = [
   {
     url: "/login",
-    requiredAuth: false,
+    AuthLayout: false,
     element: <LoginPage />
   },
   {
     url: "/register",
-    requiredAuth: false,
+    AuthLayout: false,
     element: <RegitserPage />
   },
   {
     url: "/",
-    requiredAuth: true,
+    AuthLayout: true,
     element: <HomePage />
   },
   {
+    url: "/setup-username",
+    AuthLayout: false,
+    element: <SetUsernamePage />
+  },
+  {
     url: "/mui",
-    requiredAuth: false,
+    AuthLayout: false,
     element: <MuiPlayground />
   }
 ]
@@ -38,8 +45,11 @@ function App() {
         {routes.map((route => {
           return (
             <Route key={route.url} path={route.url} element={
-              route.requiredAuth ? <RequiredAuth>
-                {route.element}
+              route.AuthLayout ? 
+              <RequiredAuth>
+                <AuthLayout>
+                  {route.element}
+                </AuthLayout>
               </RequiredAuth>
                 :
                 route.element
