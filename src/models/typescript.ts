@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export interface UrlProps {
     url: string,
-    requiredAuth: boolean,
+    AuthLayout: boolean,
     element: ReactNode
 }
 
