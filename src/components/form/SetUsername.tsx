@@ -1,13 +1,15 @@
-import { TextField, Button, Box, Typography, Alert } from "@mui/material";
+import { TextField, Button, Box, Container } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "../../context/authProvider";
 import { useFireStore } from "../../config/firebase";
 import { Logo } from "../mui/logo";
 import { LoadingBackDrop } from "../mui/loading/backdrop";
+import { useResponsive } from "../../hooks/useResponsive";
 
 export const SetUsernameComponent = () => {
     const { currentUser } = useAuth();
-    const { updateDoc, db, doc } = useFireStore();
+    const { updateDoc, db, doc, getDocs, collection, query, where } = useFireStore();
+    const { isMobile } = useResponsive();
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -22,10 +24,20 @@ export const SetUsernameComponent = () => {
         setError("");
 
         try {
+            const userRef = collection(db, "users");
+            const q = query(userRef, where("username", "==", username));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                setError("Username is already taken!");
+                setLoading(false);
+                return;
+            }
+
             const userDocRef = doc(db, "users", currentUser.uid);
             await updateDoc(userDocRef, { username });
             window.location.href = "/"
-        } catch(error : any) {
+        } catch (error: any) {
             setError(error?.message || "Something went wrong, try again later!");
         } finally {
             setLoading(false);
@@ -34,25 +46,27 @@ export const SetUsernameComponent = () => {
 
     return (
         <>
-            { loading && <LoadingBackDrop />}
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 5 }}>
-                <Logo />
-                <Typography variant="body1" gutterBottom>Set Up Your Username</Typography>
-                <form onSubmit={handleSubmit}>
-                    {error && <Alert sx={{ my: 1}} severity="error">{error}</Alert>}
-                    <TextField
-                        label="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        fullWidth
-                        variant="outlined"
-                        sx={{ mb: 2 }}
-                    />
-                    <Button type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
-                        {loading ? "Setting Up..." : "Set Username"}
-                    </Button>
-                </form>
-            </Box>
+            <Container maxWidth="lg">
+                {loading && <LoadingBackDrop />}
+                <Box sx={{ display: "flex", height: "100vh", flexDirection: "column", justifyContent: "center" }}>
+                    <Logo size={isMobile? null : 150} />
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }} component="form" onSubmit={handleSubmit}>
+                        <TextField
+                            label="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            fullWidth
+                            size="medium"
+                            variant="standard"
+                            helperText={error ? error : ""}
+                            sx={{ flexBasis: "80%" }}
+                        />
+                        <Button sx={{ flexBasis: "20%" }} type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
+                            {loading ? "Setting Up..." : "Enter"}
+                        </Button>
+                    </Box>
+                </Box>
+            </Container>
         </>
     )
 }
