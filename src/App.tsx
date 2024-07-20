@@ -6,35 +6,39 @@ import { LoginPage } from './pages/login/page'
 import { RegitserPage } from './pages/register/page'
 import { SetUsernamePage } from './pages/setusername/page'
 import { RequiredAuth } from './components/requiredAuth/requiredAuth'
-import { AuthLayout } from './components/Layout/AuthLayout'
 import { MuiPlayground } from './components/mui/page'
 
 const routes: UrlProps[] = [
   {
     url: "/login",
-    AuthLayout: false,
+    requiredAuth: false,
     element: <LoginPage />
   },
   {
     url: "/register",
-    AuthLayout: false,
+    requiredAuth: false,
     element: <RegitserPage />
   },
   {
     url: "/",
-    AuthLayout: true,
+    requiredAuth : true,
     element: <HomePage />
   },
   {
     url: "/setup-username",
-    AuthLayout: false,
+    requiredAuth : true,
     element: <SetUsernamePage />
   },
   {
     url: "/mui",
-    AuthLayout: false,
+    requiredAuth: false,
     element: <MuiPlayground />
-  }
+  },
+  {
+    url: "/404", 
+    requiredAuth : false,
+    element: <h1>Page not found</h1>
+  },
 ]
 
 function App() {
@@ -45,11 +49,9 @@ function App() {
         {routes.map((route => {
           return (
             <Route key={route.url} path={route.url} element={
-              route.AuthLayout ? 
+              route.requiredAuth ? 
               <RequiredAuth>
-                <AuthLayout>
                   {route.element}
-                </AuthLayout>
               </RequiredAuth>
                 :
                 route.element
