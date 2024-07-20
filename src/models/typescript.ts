@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 
 export interface UrlProps {
     url: string,
-    AuthLayout: boolean,
-    element: ReactNode
+    element: ReactNode,
+    requiredAuth: boolean
 }
 
 export interface InputProps {
