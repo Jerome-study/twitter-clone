@@ -1,6 +1,5 @@
 import { Card, Box, Avatar, Typography, CardContent} from '@mui/material';
 import { useTweet } from '../../context/tweetProvider';
-import Skeleton from '@mui/material/Skeleton';
 import { TweetImages } from './TweetImages';
 import { useResponsive } from '../../hooks/useResponsive';
 import { ActionComponent } from './ActionComponent';
@@ -8,19 +7,19 @@ import { ActionComponent } from './ActionComponent';
 export const Tweets = ({ currentUserTweet }: any) => {
     const avatarUrl = 'https://via.placeholder.com/150';
     const { isMobile } = useResponsive();
-    const { userInfo, userInfoLoading, userInfoError } = useTweet()
+    const { userInfo } = useTweet()
 
-    if (userInfoError) return <Typography>{userInfoError}</Typography>
-    const { first_name, last_name } = userInfo;
-
+    const { first_name, last_name, username } = userInfo;
+    
     return (
         <>
-            <Card sx={{ borderRadius: 0, boxShadow: 0, borderBottom: '1px solid #ccc', display: 'flex', gap: 2, px: 2, py: 1.5 }}>
+            <Card sx={{bgcolor: "", borderRadius: 0, boxShadow: 0, borderBottom: '1px solid #ccc', display: 'flex', gap: 2, px: 2, py: 1.5 }}>
                 <Box>
                     <Avatar alt="Remy Sharp" src={avatarUrl} />
                 </Box>
                 <Box sx={{ flex: 1 }}>
-                    {userInfoLoading ? <Skeleton /> : <Typography variant={isMobile ? "subtitle1" : "h6"} fontWeight={900} >{first_name + " " + last_name}</Typography>}
+                    <Typography variant={isMobile ? "subtitle1" : "h6"} fontWeight={900} >{first_name + " " + last_name}</Typography>
+                    <Typography fontSize={isMobile ? 13 : ""} variant='h1' color='TweetsColor.username' fontWeight={600} >@{username}</Typography>
                     <CardContent sx={{ px: 0, py: 1 }}>
                         <Typography variant={isMobile ? "subtitle2" : "subtitle1"} fontWeight={600} mb={2}>
                             {currentUserTweet.content}
@@ -33,3 +32,5 @@ export const Tweets = ({ currentUserTweet }: any) => {
         </>
     )
 }
+
+export default Tweets;
