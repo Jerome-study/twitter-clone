@@ -4,6 +4,7 @@ import { UserCardSkeleton } from "../mui/skeleton/UserCardSkeleton";
 import { CircularProgress } from '@mui/material';
 import { UserInfoProps } from "../../models/typescript";
 import { useSearch } from "../../hooks/useSearch";
+import { useAuth } from "../../context/authProvider";
 
 const UserCardLazy = lazy(() => import("./UserCard"))
 
@@ -23,7 +24,7 @@ const trendingData = [
 export const MainSearchComponent = () => {
     const [searchValue, setSearchValue] = useState('');
     const { searchResult, loading } = useSearch(searchValue);
-    
+    const { currentUser } = useAuth();
     const handleChangeValue = (e: any) => {
         setSearchValue(e.target.value)
     }
@@ -71,8 +72,8 @@ export const MainSearchComponent = () => {
             {(searchResult.length > 0 && !loading) &&
                 <Suspense fallback={<CircularProgress />}>
                     <Box>
-                        {searchResult.map((user: UserInfoProps, index: number) => (
-                            <UserCardLazy user={user} key={index} />
+                        {searchResult.map((user: UserInfoProps) => (
+                            user.id !== currentUser.uid && <UserCardLazy key={user.id} user={user}/>
                         ))}
                     </Box>
                 </Suspense>
