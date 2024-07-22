@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { addDoc, getFirestore, collection, getDoc, query, getDocs, doc, setDoc, serverTimestamp, where, updateDoc } from "firebase/firestore";
+import { addDoc, getFirestore, collection, getDoc, query, getDocs, doc, setDoc, serverTimestamp, where, updateDoc, deleteDoc, increment, writeBatch } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   createUserWithEmailAndPassword,
@@ -37,7 +37,10 @@ export const useFireStore = () => {
     setDoc,
     serverTimestamp,
     where,
-    updateDoc
+    updateDoc,
+    deleteDoc,
+    increment,
+    writeBatch
   }
 }
 
