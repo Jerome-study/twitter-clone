@@ -4,20 +4,20 @@ import { useTweet } from "../../context/tweetProvider";
 import { useResponsive } from "../../hooks/useResponsive";
 import { TweetSkeleton } from "../mui/skeleton/TweetSkeleton";
 import { lazy, Suspense } from "react";
-import { TweetProps } from "../../models/typescript";
 
 const LazyTweets = lazy(() => import("../tweets/Tweets"));
 
 export const HomeComponent = () => {
-  const { currentUserTweets, tweetsLoading } = useTweet();
+  const { currentUserTweets, currentUserFollowingTweets, tweetProviderLoading } = useTweet();
   const { isMobile } = useResponsive();
+  const { userInfo } = useTweet();
 
   return (
     <>
       <Typography
         hidden
         sx={{
-          p: 2, 
+          p: 2,
           display: { lg: 'block' }
         }}
         component="h1"
@@ -34,22 +34,24 @@ export const HomeComponent = () => {
         )}
       </Box>
 
-      {tweetsLoading ? (
+      {(tweetProviderLoading) ? (
         <Box>
           {Array.from({ length: 10 }, (_, index) => (
             <TweetSkeleton key={index} />
           ))}
         </Box>
-      ) : 
-        <Box>
-          <Suspense fallback={<CircularProgress />}>
-            {currentUserTweets?.map((tweet : TweetProps) => (
-              <LazyTweets currentUserTweet={tweet} key={tweet.id} />
-            ))}
-          </Suspense>
-        </Box>
+      ) :
+        <>
+          <Box>
+            <Suspense fallback={<CircularProgress />}>
+              {[...currentUserTweets, ...currentUserFollowingTweets].sort((a,b) => a.createdAt - b.createdAt)?.map((tweet: any) => (
+                <LazyTweets currentUserTweet={tweet} userInfo={tweet.userInfo || userInfo} key={tweet.id} />
+              ))}
+            </Suspense>
+          </Box>
+        </>
       }
-      
+
     </>
   );
 };
