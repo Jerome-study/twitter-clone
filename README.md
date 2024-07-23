@@ -4,7 +4,7 @@
 Not Done
 
 ## Next Task
-- Add Functionality to the Search Component
+- Functionality of Like Buttons
 
 ## Features
 - Authentication Page
@@ -22,8 +22,10 @@ Not Done
     - [x] Loading
     - [x] Error handling
     - [x] With image
-  - [x] Current User Tweets Display
+  - [x] Current User Tweets and Followed users Display
   - [x] Tweets action buttons design
   - [x] Layout in Small and Large Screens finished
+  - [x] Follow Feature is added
+  - [x] Search Feature is added
   
 - Other features coming soon...
