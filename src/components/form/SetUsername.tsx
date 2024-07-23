@@ -8,7 +8,7 @@ import { useResponsive } from "../../hooks/useResponsive";
 
 export const SetUsernameComponent = () => {
     const { currentUser } = useAuth();
-    const { updateDoc, db, doc, getDocs, collection, query, where } = useFireStore();
+    const { updateDoc, db, doc, getDocs, collection, query, where, getDoc } = useFireStore();
     const { isMobile } = useResponsive();
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
@@ -35,7 +35,16 @@ export const SetUsernameComponent = () => {
             }
 
             const userDocRef = doc(db, "users", currentUser.uid);
-            await updateDoc(userDocRef, { username, usernameLower : username.toLowerCase() });
+            const snap = await getDoc(userDocRef)
+
+            if (!snap.exists()) return
+
+            const usernameLower = username.toLowerCase();
+            const firstNameLower = snap?.data()?.first_name.toLowerCase();
+            const lastNameLower = snap?.data()?.last_name?.toLowerCase()
+            const searchStrings = [usernameLower, firstNameLower, lastNameLower]
+
+            await updateDoc(userDocRef, { username, searchStrings });
             window.location.href = "/"
         } catch (error: any) {
             setError(error?.message || "Something went wrong, try again later!");
