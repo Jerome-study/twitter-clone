@@ -26,5 +26,5 @@ export const useGetFollowing = (follower_id : string) => {
 
     }, []);
 
-    return { currentUserFollowing, loading, error }
+    return { currentUserFollowing, loading, error, setCurrentUserFollowing }
 }

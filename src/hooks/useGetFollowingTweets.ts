@@ -4,12 +4,16 @@ import { TweetProps } from "../models/typescript";
 
 export const useGetFollowingTweets = (followingIds: string[]) => {
     const [currentUserFollowingTweets, setCurrentUserFollowingTweets] = useState<TweetProps[]>([]);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const { query, getDocs, collection, db, where } = useFireStore();
     
     useEffect(() => {
-        setLoading(true)
-        if (followingIds.length === 0) return setLoading(false);
+        if (followingIds.length < 1) {
+            console.log("run")
+            setCurrentUserFollowingTweets([])
+            setLoading(false)
+            return
+        }
 
         const fetchTweets = async () => {
             try {

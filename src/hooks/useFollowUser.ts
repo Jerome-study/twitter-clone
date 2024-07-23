@@ -1,10 +1,12 @@
 import { useFireStore } from "../config/firebase"
 import { useState, useEffect } from "react"
+import { useTweet } from "../context/tweetProvider";
 
 
 export const useFollowUser = (follower_id: string, following_id: string) => {
     const { collection, where, query, db, getDocs, setDoc, doc, serverTimestamp, deleteDoc, updateDoc, increment } = useFireStore();
     const [isFollowing, setIsFollowing] = useState(false);
+    const { setCurrentUserFollowing } = useTweet();
 
     const handleFollowClick = async () => {
         try {
@@ -31,6 +33,8 @@ export const useFollowUser = (follower_id: string, following_id: string) => {
                 });
 
                 setIsFollowing(prev => !prev);
+                
+                setCurrentUserFollowing((prev : string[]) => prev.filter((id : string) => id != following_id));
             } else {
                 await setDoc(doc(followsRef), {
                     follower_id,
@@ -46,7 +50,8 @@ export const useFollowUser = (follower_id: string, following_id: string) => {
                 await updateDoc(followingDocRef, {
                     followers_count: increment(1)
                 });
-               
+                
+                setCurrentUserFollowing((prev : any) => [...prev, following_id]);
             }
         } catch (error: any) {
             console.log(error)
