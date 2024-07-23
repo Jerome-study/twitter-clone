@@ -35,7 +35,7 @@ export const SetUsernameComponent = () => {
             }
 
             const userDocRef = doc(db, "users", currentUser.uid);
-            await updateDoc(userDocRef, { username });
+            await updateDoc(userDocRef, { username, usernameLower : username.toLowerCase() });
             window.location.href = "/"
         } catch (error: any) {
             setError(error?.message || "Something went wrong, try again later!");
