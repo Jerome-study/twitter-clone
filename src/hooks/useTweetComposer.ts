@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useFireStore, useFirebaseStorage } from "../config/firebase";
 import { useAuth } from "../context/authProvider";
 import { tweetSchema } from "../models/zod";
+import { useTweet } from "../context/tweetProvider";
 
 export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) => {
     // States
@@ -13,8 +14,9 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
     const [error, setError] = useState("")
 
     // Custom Hooks 
-    const { doc, setDoc, collection, db, serverTimestamp } = useFireStore();
+    const { doc, setDoc, collection, db, serverTimestamp, getDoc } = useFireStore();
     const { storage, ref, uploadBytes, getDownloadURL } = useFirebaseStorage();
+    const { setCurrentUserTweets } = useTweet()
     
     // Context Hook
     const { currentUser } = useAuth();
@@ -62,7 +64,14 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
 
             // Insert tweet on tweets collection
             await setDoc(doc(db, 'tweets', tweetId), { ...tweet, image: imageUrls });
+
+            // Retrieve the stored data
+            const storedDoc = await getDoc(doc(db, 'tweets', tweetId));
+
             if (toggleDrawer) toggleDrawer(); // If in mobile view
+
+            // Update The Current User tweets
+            setCurrentUserTweets((prev : any) => [...prev, { ...storedDoc.data() }])
         } catch (error: any) {
             setError("Something went wrog please try again later");
         } finally {

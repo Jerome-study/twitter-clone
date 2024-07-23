@@ -27,10 +27,12 @@ export const useGetTweets = (user_id: string) => {
         }
 
         getData();
+
     }, [])
 
     return {
         currentUserTweets,
+        setCurrentUserTweets,
         loading,
         error
     }

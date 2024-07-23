@@ -17,10 +17,10 @@ export const TweetProvider = ({ children } : { children : ReactNode }) => {
     const { userInfo, loading: userInfoLoading } = useGetTweetsUserInfo(currentUser.uid)
     const { currentUserFollowing, loading : currentUserFollowingLoading, setCurrentUserFollowing } = useGetFollowing(currentUser.uid);
     const { currentUserFollowingTweets, loading : currentUserFollowingTweetsLoading } = useGetFollowingTweets(currentUserFollowing);
-    const { currentUserTweets, loading : tweetsLoading } = useGetTweets(currentUser.uid);
+    const { currentUserTweets, loading : tweetsLoading, setCurrentUserTweets } = useGetTweets(currentUser.uid);
     const tweetProviderLoading = tweetsLoading || currentUserFollowingLoading || currentUserFollowingTweetsLoading || userInfoLoading
     return(
-        <TweetContext.Provider value={{ currentUserTweets, tweetProviderLoading, currentUserFollowingTweets, userInfo, setCurrentUserFollowing, currentUserFollowing }}>
+        <TweetContext.Provider value={{ currentUserTweets, setCurrentUserTweets, tweetProviderLoading, currentUserFollowingTweets, userInfo, setCurrentUserFollowing, currentUserFollowing }}>
             { children }
         </TweetContext.Provider>
     )
