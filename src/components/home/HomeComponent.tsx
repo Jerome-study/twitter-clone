@@ -44,7 +44,7 @@ export const HomeComponent = () => {
         <>
           <Box>
             <Suspense fallback={<CircularProgress />}>
-              {[...currentUserTweets, ...currentUserFollowingTweets].sort((a,b) => a.createdAt - b.createdAt)?.map((tweet: any) => (
+              {[...currentUserTweets, ...currentUserFollowingTweets].sort((a,b) => b.createdAt - a.createdAt )?.map((tweet: any) => (
                 <LazyTweets currentUserTweet={tweet} userInfo={tweet.userInfo || userInfo} key={tweet.id} />
               ))}
             </Suspense>
