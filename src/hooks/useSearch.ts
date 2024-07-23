@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useFireStore } from "../config/firebase";
 import { UserInfoProps } from "../models/typescript";
+import { useAuth } from '../context/authProvider';
 
 export const useSearch = (searchValue: string) => {
     const [searchResult, setSearchResult] = useState<UserInfoProps[]>([]);
+    const { currentUser } = useAuth();
     const [loading, setLoading] = useState(false);
     const { collection, query, db, getDocs, where } = useFireStore();
 
@@ -12,15 +14,12 @@ export const useSearch = (searchValue: string) => {
         const fetchUser = async () => {
             try {
                 if (searchValue) {
-                    const usernameQuery = query(collection(db, 'users'), where('username', "==", searchValue));
-                    const firstNameQuery = query(collection(db, 'users'), where('first_name', "==", searchValue));
+                    const userQuery = query(collection(db, 'users'), where('searchStrings', 'array-contains', searchValue.toLowerCase()));
 
-                    const usernameSnap = await getDocs(usernameQuery);
-                    const firstNameSnap = await getDocs(firstNameQuery);
+                    const userSnap = await getDocs(userQuery);
 
                     const results: any = [];
-                    usernameSnap.forEach(doc => results.push(doc.data()));
-                    firstNameSnap.forEach(doc => results.push(doc.data()));
+                    userSnap.forEach(doc => doc.data().id !== currentUser.uid && results.push(doc.data()) );
 
                     setSearchResult(results)
                 } else {
