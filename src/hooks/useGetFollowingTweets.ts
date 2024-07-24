@@ -12,7 +12,8 @@ export const useGetFollowingTweets = (followingIds: string[]) => {
         setLoading(true)
         if (followingIds.length < 1) {
             setCurrentUserFollowingTweets([]);
-            setLoading(false)
+            setLoading(false);
+            setFirstLoad(false);
             return
         }
         const fetchTweets = async () => {
@@ -25,15 +26,13 @@ export const useGetFollowingTweets = (followingIds: string[]) => {
 
                 const tweetSnapshot = await getDocs(tweetsQuery);
                 const usersSnapshot = await getDocs(userQuery);
-
-
+                
                 const usersInfo = usersSnapshot.docs.map(doc => doc.data())
 
                 const tweets : any = tweetSnapshot.docs.map(doc => {
                     const user = usersInfo.find((info) => doc.data().user_id === info.id);
                     if (user) return { ...doc.data(), id: doc.id, userInfo: user }
                 });
-
 
                 setCurrentUserFollowingTweets(tweets)
             } catch (error: any) {
