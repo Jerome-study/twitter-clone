@@ -16,9 +16,9 @@ export const TweetProvider = ({ children } : { children : ReactNode }) => {
     const { currentUser } = useAuth(); 
     const { userInfo, loading: userInfoLoading } = useGetTweetsUserInfo(currentUser.uid)
     const { currentUserFollowing, loading : currentUserFollowingLoading, setCurrentUserFollowing } = useGetFollowing(currentUser.uid);
-    const { currentUserFollowingTweets, loading : currentUserFollowingTweetsLoading, firstLoad } = useGetFollowingTweets(currentUserFollowing);
+    const { currentUserFollowingTweets, loading : currentUserFollowingTweetsLoading } = useGetFollowingTweets(currentUserFollowing, currentUserFollowingLoading);
     const { currentUserTweets, loading : tweetsLoading, setCurrentUserTweets } = useGetTweets(currentUser.uid);
-    const tweetProviderLoading = tweetsLoading || currentUserFollowingLoading || (currentUserFollowingTweetsLoading && firstLoad ) || userInfoLoading
+    const tweetProviderLoading = tweetsLoading || currentUserFollowingLoading || currentUserFollowingTweetsLoading || userInfoLoading
     return(
         <TweetContext.Provider value={{ currentUserTweets, setCurrentUserTweets, tweetProviderLoading, currentUserFollowingTweets, userInfo, setCurrentUserFollowing, currentUserFollowing }}>
             { children }
