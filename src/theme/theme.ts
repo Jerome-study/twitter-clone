@@ -9,6 +9,9 @@ declare module "@mui/material/styles" {
         },
         HomeComponentColors: {
             divider: string
+        },
+        navigationColor: {
+            black: string
         }
     }
 }
@@ -22,9 +25,15 @@ export const theme = createTheme({
         },
         HomeComponentColors : {
             divider: grey[300]
+        },
+        navigationColor: {
+            black: '#000'
         }
     },
     typography: {
-        fontFamily: 'Segoe UI, Arial, sans-serif'
+        fontFamily: 'Segoe UI, Arial, sans-serif',
+        button : {
+            textTransform : 'none'
+        }
     }
 })
