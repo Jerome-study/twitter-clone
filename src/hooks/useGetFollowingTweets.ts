@@ -4,17 +4,17 @@ import { TweetProps } from "../models/typescript";
 
 export const useGetFollowingTweets = (followingIds: string[]) => {
     const [currentUserFollowingTweets, setCurrentUserFollowingTweets] = useState<TweetProps[]>([]);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [firstLoad, setFirstLoad] = useState(true);
     const { query, getDocs, collection, db, where } = useFireStore();
     
     useEffect(() => {
+        setLoading(true)
         if (followingIds.length < 1) {
-            console.log("run")
-            setCurrentUserFollowingTweets([])
+            setCurrentUserFollowingTweets([]);
             setLoading(false)
             return
         }
-
         const fetchTweets = async () => {
             try {
                 const tweetsRef = collection(db, "tweets");
@@ -39,13 +39,14 @@ export const useGetFollowingTweets = (followingIds: string[]) => {
             } catch (error: any) {
 
             } finally {
-                setLoading(false)
+                setLoading(false);
+                setFirstLoad(false)
             }
         }
 
         fetchTweets();
     }, [followingIds]);
 
-    return { currentUserFollowingTweets, loading }
+    return { currentUserFollowingTweets, loading, firstLoad }
 
 }
