@@ -7,9 +7,9 @@ export interface UrlProps {
 }
 
 export interface InputProps {
-    name: string,
-    placeholder: string,
-    type: string
+    name?: string,
+    placeholder?: string,
+    type?: string
 }
 
 export interface UserInfoProps {
@@ -27,4 +27,19 @@ export interface TweetProps {
     updatedAt : Date,
     user_id : string,
     id : string
+}
+
+export interface AuthButtonProps {
+    isGoogle: Boolean,
+    isSubmit : Boolean,
+    onClick?: () => void,
+    loading?: Boolean,
+    label: string
+}
+
+export interface FormFieldProps {
+    input: InputProps,
+    register: any,
+    errors: any,
+    isRegister: Boolean
 }
