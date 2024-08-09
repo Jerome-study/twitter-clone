@@ -1,10 +1,10 @@
 import { Grid, Box, Link, Alert, Typography } from "@mui/material";
 import { AuthButton } from "./AuthButton";
 import { FormTextField } from "./FormTextField";
-import { useFormValidation } from "../../../hooks/useFormValidatioin";
+import { useFormValidation } from "../../hooks/useFormValidatioin";
 import { InputProps } from "@mui/material";
-import { LoadingBackDrop } from "../../mui/loading/backdrop";
-import { Logo } from "../../mui/logo";
+import { LoadingBackDrop } from "../mui/loading/backdrop";
+import { Logo } from "../mui/logo";
 import { styles } from "./styles";
 
 export const AuthenticationForm = ({ inputs, formType }: { inputs: InputProps[], formType: string }) => {

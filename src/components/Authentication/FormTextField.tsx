@@ -1,7 +1,7 @@
 import { Grid, TextField } from "@mui/material"
-import { FormProps } from "../../../models/zod"
+import { FormProps } from "../../models/zod"
 import { styles } from "./styles"
-import { FormFieldProps } from "../../../models/typescript"
+import { FormFieldProps } from "../../models/typescript"
 
 export const FormTextField = ({ input, register, errors, isRegister }: FormFieldProps) => {
     return (

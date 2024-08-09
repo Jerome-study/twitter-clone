@@ -1,4 +1,4 @@
-import { AuthenticationForm } from "../../components/form/Authentication/main"
+import { AuthenticationForm } from "../../components/Authentication/main"
 import { inputs } from "./const"
 
 export const LoginPage = () => {

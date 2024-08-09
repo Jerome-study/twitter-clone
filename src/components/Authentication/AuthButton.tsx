@@ -1,6 +1,6 @@
 import { Button, CircularProgress } from "@mui/material"
 import { styles } from "./styles"
-import { AuthButtonProps } from "../../../models/typescript"
+import { AuthButtonProps } from "../../models/typescript"
 
 export const AuthButton = ({ isGoogle, isSubmit, onClick, loading, label }: AuthButtonProps) => {
     return (
