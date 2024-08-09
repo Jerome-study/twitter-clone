@@ -12,6 +12,12 @@ declare module "@mui/material/styles" {
         },
         navigationColor: {
             black: string
+        },
+        custom: {
+            lightGray: string,
+            white: string,
+            black: string,
+            blue: string
         }
     }
 }
@@ -28,10 +34,16 @@ export const theme = createTheme({
         },
         navigationColor: {
             black: '#000'
+        },
+        custom: {
+            lightGray: "#f2f2f2",
+            white: "#ffffff",
+            black: "#000000",
+            blue: "#38b6ff"
         }
     },
     typography: {
-        fontFamily: 'Segoe UI, Arial, sans-serif',
+        fontFamily: "Roboto, Arial, sans-serif",
         button : {
             textTransform : 'none'
         }
