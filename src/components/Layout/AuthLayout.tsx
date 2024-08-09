@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import { Box, Grid, Container } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { Navbar } from "../navbar/navbar";
 import { BottomNavbar } from "../navbar/bottomNav";
 import { NavigationLeftList } from "../navbar/List";
@@ -57,8 +57,8 @@ export const AuthLayout = ({ children }: { children: ReactNode }) => {
     }, [isMobile])
 
     return (
-        <Container maxWidth="xl">
-            <TweetProvider>
+
+        <TweetProvider>
             <Grid container>
                 <Grid item lg={3} xs={12}>
                     <NavbarAndLeftSidebar />
@@ -66,15 +66,14 @@ export const AuthLayout = ({ children }: { children: ReactNode }) => {
                 <Grid item lg={6} xs={12}>
                     <MainContent>{condition}</MainContent>
                 </Grid>
-                { !isMobile && 
-                <Grid item lg={3} xs={12}>
-                    <RightSidebar />
-                </Grid>
+                {!isMobile &&
+                    <Grid item lg={3} xs={12}>
+                        <RightSidebar />
+                    </Grid>
                 }
             </Grid>
             {isMobile && <BottomNavbar handleBottomNavAction={handleBottomNavAction} />}
         </TweetProvider>
-        </Container>
     )
 
 }
