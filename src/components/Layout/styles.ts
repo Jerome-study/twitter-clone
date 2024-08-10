@@ -1,23 +1,31 @@
 export const styles = {
+    bodyStyle: { 
+        bgcolor: { lg: "custom.lightGray" }
+    },
+    gridItemStyle: {
+        bgcolor: "custom.lightGray" 
+    },
     mainBoxStyle: { 
         mt: { lg: 0, xs: 1.5 }, 
         width: "100%", 
+        py: { lg : 4.5 }
     },
     rightBoxStyle: {
         position: 'sticky',
         overflow: "scroll",
-        top: 0,
-        height: '100vh',
+        backgroundColor: "custom.white",
+        height: "90vh",
+        top: 35,
         width: '100%',
-        borderLeft: '1px solid #ccc',
+        borderRadius: 5,
         zIndex: 1
     },
     leftBoxStyle: {
         position: 'sticky',
-        top: 0,
-        height: { lg: "100vh" },
-        width: '100%',
-        borderRight: '1px solid #ccc',
+        backgroundColor: "custom.white",
+        height: "90vh",
+        top: 35,
         zIndex: 1,
+        borderRadius: 5
     }
 }
