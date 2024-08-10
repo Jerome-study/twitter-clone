@@ -5,7 +5,7 @@ import { BottomNavbar } from "../navbar/bottomNav";
 import { NavigationLeftList } from "../navbar/List";
 import { useResponsive } from "../../hooks/useResponsive";
 import { TweetProvider } from "../../context/tweetProvider";
-import { MainSearchComponent } from "../search/main";
+import { MainSearchComponent } from "../Search/main";
 
 const MainContent = ({ children }: { children: ReactNode }) => (
     <Box sx={{ mt: { lg: 0, xs: 2 }, width: "100%", }} >

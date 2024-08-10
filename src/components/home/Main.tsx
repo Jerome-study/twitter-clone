@@ -5,9 +5,9 @@ import { useResponsive } from "../../hooks/useResponsive";
 import { TweetSkeleton } from "../mui/skeleton/TweetSkeleton";
 import { lazy, Suspense } from "react";
 
-const LazyTweets = lazy(() => import("../tweets/Tweets"));
+const LazyTweets = lazy(() => import("../Tweets/Tweets"));
 
-export const HomeComponent = () => {
+export const MainHomeComponent = () => {
   const { currentUserTweets, currentUserFollowingTweets, tweetProviderLoading } = useTweet();
   const { isMobile } = useResponsive();
   const { userInfo } = useTweet();

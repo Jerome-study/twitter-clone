@@ -1,5 +1,5 @@
 import { TextField, Button, Box, Typography } from "@mui/material";
-import { Logo } from "../mui/logo";
+import { Logo } from "../mui/Logo";
 import { LoadingBackDrop } from "../mui/loading/backdrop";
 import { useResponsive } from "../../hooks/useResponsive";
 import { useSetUsername } from "../../hooks/useSetUsername";

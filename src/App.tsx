@@ -5,7 +5,7 @@ import { HomePage } from './pages/home/page'
 import { LoginPage } from './pages/login/page'
 import { RegitserPage } from './pages/register/page'
 import { SetUsernamePage } from './pages/setusername/page'
-import { RequiredAuth } from './components/requiredAuth/requiredAuth'
+import { RequiredAuth } from './components/RequiredAuth/RequiredAuth'
 import { MuiPlayground } from './components/mui/page'
 
 const routes: UrlProps[] = [

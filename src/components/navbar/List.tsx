@@ -8,7 +8,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Typography, Button } from '@mui/material';
-import { Logo } from '../mui/logo';
+import { Logo } from '../mui/Logo';
 import { NavList } from './const';
 import { Link } from 'react-router-dom';
 import { useLogout } from '../../hooks/useLogout';

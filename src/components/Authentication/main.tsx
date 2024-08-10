@@ -4,7 +4,7 @@ import { FormTextField } from "./FormTextField";
 import { useFormValidation } from "../../hooks/useFormValidatioin";
 import { InputProps } from "@mui/material";
 import { LoadingBackDrop } from "../mui/loading/backdrop";
-import { Logo } from "../mui/logo";
+import { Logo } from "../mui/Logo";
 import { styles } from "./styles";
 
 export const AuthenticationForm = ({ inputs, formType }: { inputs: InputProps[], formType: string }) => {
