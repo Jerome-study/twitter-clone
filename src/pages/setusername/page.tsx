@@ -1,9 +1,9 @@
-import { SetUsernameComponent } from "../../components/form/SetUsername"
+import { MainSetUsername } from "../../components/SetUsername/Main"
 
 export const SetUsernamePage = () => {
     return(
         <>
-            <SetUsernameComponent />
+            <MainSetUsername />
         </>
     )
 }
