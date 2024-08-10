@@ -15,6 +15,7 @@ import { useLogout } from '../../hooks/useLogout';
 import { Fragment, useState } from 'react';
 import { useResponsive } from '../../hooks/useResponsive';
 import { useTweet } from '../../context/tweetProvider';
+import { styles } from './styles';
 
 export const NavigationLeftList = () => {
     const [open, setOpen] = useState(false);
@@ -28,7 +29,7 @@ export const NavigationLeftList = () => {
 
     return (
         <>
-            <List sx={{ px: { xs: 2, lg: 5 } }}>
+            <List sx={styles.listContainerStyle}>
                 <ListItem >
                     <Logo />
                 </ListItem>
@@ -36,14 +37,14 @@ export const NavigationLeftList = () => {
                 {NavList.map((text) => (
                     ((text.isLargeView && !isMobile ) || text.isMobileView && isMobile) &&
                     <Fragment key={text.name}>
-                        <ListItem sx={{ bgcolor: "transparent", mb: 1 }} disablePadding>
+                        <ListItem sx={styles.listItemContainerStyle} disablePadding>
                             <ListItemButton component={Link} to={text.path || "#"} onClick={() => text?.isCollapse ? handleClick() : undefined}>
                                 <ListItemIcon>
                                     {text.icon}
                                 </ListItemIcon>
                                 <ListItemText
                                     primary={
-                                        <Typography variant='h6' sx={{ fontSize: { xs: 17, lg: 20 }, fontWeight: 700 }}>
+                                        <Typography variant='h6' sx={styles.listNameStyle}>
                                             {text.name}
                                         </Typography>
                                     }
@@ -56,10 +57,10 @@ export const NavigationLeftList = () => {
                                 <List component="div" disablePadding>
                                     <ListItemButton onClick={logout} sx={{ pl: 4 }}>
                                         <ListItemIcon>
-                                            <LogoutIcon sx={{ fontSize: { xs: 12, lg: 15}, color: 'info.light' }} />
+                                            <LogoutIcon sx={styles.collapseListIconStyle} />
                                         </ListItemIcon>
                                         <ListItemText primary={
-                                            <Typography sx={{ fontSize: { xs: 13, lg: 15 }, fontWeight: 600 }}>
+                                            <Typography sx={styles.collapseListNameStyle}>
                                                 Logout
                                             </Typography>}
                                         />
@@ -69,7 +70,7 @@ export const NavigationLeftList = () => {
                         }
                     </Fragment> 
                 ))}
-                {!isMobile && <Button onClick={() => focusInput()} variant='contained' sx={{ borderRadius: 50, width: '100%', py:2,  mt : 2, fontWeight: 700, fontSize: { xs: 13, lg: 17} }}>Tweet</Button>}
+                {!isMobile && <Button onClick={() => focusInput()} variant='contained' sx={styles.tweetButtonStyle}>Tweet</Button>}
             </List>
         </>
     )

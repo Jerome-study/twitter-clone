@@ -8,40 +8,42 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import { styles } from './styles';
+
 export const NavList = [
   {
     name: "Home",
     path: "/",
-    icon: <HomeOutlinedIcon sx={{ fontSize: { xs: 20, lg: 25 }, color: 'info.light' }} />,
+    icon: <HomeOutlinedIcon sx={styles.listIconStyle} />,
     isMobileView: true,
     isLargeView : true
   },
   {
     name: "Profile",
     path: "/profile",
-    icon: <Person2OutlinedIcon sx={{ fontSize: { xs: 20, lg: 25 }, color: 'info.light' }} />,
+    icon: <Person2OutlinedIcon sx={styles.listIconStyle} />,
     isMobileView: true,
     isLargeView : true
   },
   {
     name: "Notifications",
-    icon: <NotificationsNoneOutlinedIcon sx={{ fontSize: { xs: 20, lg: 25 }, color: 'info.light' }} />,
+    icon: <NotificationsNoneOutlinedIcon sx={styles.listIconStyle} />,
     isLargeView : true,
   },
   {
     name: "Messages",
-    icon: <EmailOutlinedIcon sx={{ fontSize: { xs: 20, lg: 25 }, color: 'info.light' }}  />,
+    icon: <EmailOutlinedIcon sx={styles.listIconStyle}  />,
     isLargeView : true,
   },
   {
     name: "Bookmarks",
-    icon: <BookmarkBorderOutlinedIcon sx={{ fontSize: { xs: 20, lg: 25 }, color: 'info.light'}} />,
+    icon: <BookmarkBorderOutlinedIcon sx={styles.listIconStyle} />,
     isMobileView: true,
     isLargeView : true,
   },
   {
     name: "Settings",
-    icon: <SettingsOutlinedIcon sx={{ fontSize: { xs: 20, lg: 25 }, color: 'info.light'}} />,
+    icon: <SettingsOutlinedIcon sx={styles.listIconStyle} />,
     isMobileView: true,
     isLargeView : true,
     isCollapse: true

@@ -5,6 +5,7 @@ import Slide from '@mui/material/Slide';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import { Logo } from '../mui/Logo';
+import { styles } from './styles';
 
 interface Props {
     window?: () => Window;
@@ -32,12 +33,12 @@ export const TopBar = ({ toggleDrawer } : any) => {
         <>
 
             <HideOnScroll>
-                <AppBar sx={{ backgroundColor: '#00acee', py: 1 }}>
+                <AppBar sx={styles.appBarStyle}>
                     <Toolbar sx={{ justifyContent: 'space-between' }}>
                         <Avatar alt="Avatar" src={avatarUrl} onClick={toggleDrawer} />
-                        <Box sx={{ flexGrow: 1 }} />
-                            <Logo inTopBar={true} />
-                        <Box sx={{ flexGrow: 1 }} />
+                        <Box sx={styles.emptBoxStyle} />
+                        <Logo inTopBar={true} />
+                        <Box sx={styles.emptBoxStyle} />
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>
