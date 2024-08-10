@@ -1,48 +1,12 @@
 import { ReactNode, useEffect, useState } from "react";
-import { Box, Grid } from "@mui/material";
-import { Navbar } from "../navbar/navbar";
-import { BottomNavbar } from "../navbar/bottomNav";
-import { NavigationLeftList } from "../navbar/List";
+import { Grid } from "@mui/material";
+import { MainContent } from "./MainContent";
+import { RightSidebar } from "./RightSide";
+import { TopAndLeftSidebar } from "./TopAndLeftSide";
+import { BottomNavbar } from "../Navbar/BottomNav";
 import { useResponsive } from "../../hooks/useResponsive";
 import { TweetProvider } from "../../context/tweetProvider";
 import { MainSearchComponent } from "../Search/main";
-
-const MainContent = ({ children }: { children: ReactNode }) => (
-    <Box sx={{ mt: { lg: 0, xs: 2 }, width: "100%", }} >
-        {children}
-    </Box>
-);
-
-const RightSidebar = () => (
-    <Box sx={{
-        position: 'sticky',
-        overflow: "scroll",
-        top: 0,
-        height: '100vh',
-        width: '100%',
-        borderLeft: '1px solid #ccc',
-        zIndex: 1
-    }}>
-        <MainSearchComponent />
-    </Box>
-);
-
-const NavbarAndLeftSidebar = () => {
-    const { isMobile } = useResponsive();
-    return (
-        <Box sx={{
-            position: 'sticky',
-            top: 0,
-            display: { lg: 'block' },
-            height: { lg: "100vh" },
-            width: '100%',
-            borderRight: '1px solid #ccc',
-            zIndex: 1,
-        }}>
-            {isMobile ? <Navbar /> : <NavigationLeftList />}
-        </Box>
-    )
-}
 
 export const AuthLayout = ({ children }: { children: ReactNode }) => {
     const { isMobile } = useResponsive();
@@ -61,18 +25,19 @@ export const AuthLayout = ({ children }: { children: ReactNode }) => {
         <TweetProvider>
             <Grid container>
                 <Grid item lg={3} xs={12}>
-                    <NavbarAndLeftSidebar />
+                    <TopAndLeftSidebar />
                 </Grid>
                 <Grid item lg={6} xs={12}>
                     <MainContent>{condition}</MainContent>
                 </Grid>
-                {!isMobile &&
+                {!isMobile ?
                     <Grid item lg={3} xs={12}>
                         <RightSidebar />
                     </Grid>
+                    :
+                    <BottomNavbar handleBottomNavAction={handleBottomNavAction} />
                 }
             </Grid>
-            {isMobile && <BottomNavbar handleBottomNavAction={handleBottomNavAction} />}
         </TweetProvider>
     )
 
