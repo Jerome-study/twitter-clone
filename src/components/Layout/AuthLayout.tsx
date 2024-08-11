@@ -24,21 +24,23 @@ export const AuthLayout = ({ children }: { children: ReactNode }) => {
     return (
         <TweetProvider>
             <Box sx={styles.bodyStyle}>
-                <Grid container gap={isMobile ? 0 : 2} justifyContent={isMobile? "" : "center"} >
-                    <Grid item lg={3} xs={12} sx={styles.gridItemStyle}>
-                        <TopAndLeftSidebar />
-                    </Grid>
-                    <Grid item lg={5} xs={12} sx={styles.gridItemStyle}>
-                        <MainContent>{condition}</MainContent>
-                    </Grid>
-                    {!isMobile ?
-                        <Grid item lg={3} xs={12} sx={styles.gridItemStyle}>
-                            <RightSidebar />
+                <Box sx={{ bgcolor: "custom.lightGray", maxWidth: "xl", marginInline: "auto"}}>
+                    <Grid container gap={isMobile ? 0 : 2} justifyContent={isMobile? "" : "center"} >
+                        <Grid item lg={3} xs={12}>
+                            <TopAndLeftSidebar />
                         </Grid>
-                        :
-                        <BottomNavbar handleBottomNavAction={handleBottomNavAction} />
-                    }
-                </Grid>
+                        <Grid item lg={5} xs={12} >
+                            <MainContent>{condition}</MainContent>
+                        </Grid>
+                        {!isMobile ?
+                            <Grid item lg={3} xs={12}>
+                                <RightSidebar />
+                            </Grid>
+                            :
+                            <BottomNavbar handleBottomNavAction={handleBottomNavAction} />
+                        }
+                    </Grid>
+                </Box>
             </Box>
         </TweetProvider>
     )
