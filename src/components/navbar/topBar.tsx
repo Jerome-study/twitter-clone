@@ -37,7 +37,7 @@ export const TopBar = ({ toggleDrawer } : any) => {
                     <Toolbar sx={{ justifyContent: 'space-between' }}>
                         <Avatar alt="Avatar" src={avatarUrl} onClick={toggleDrawer} />
                         <Box sx={styles.emptBoxStyle} />
-                        <Logo inTopBar={true} />
+                        <Logo size={26} inTopBar={true} />
                         <Box sx={styles.emptBoxStyle} />
                     </Toolbar>
                 </AppBar>
