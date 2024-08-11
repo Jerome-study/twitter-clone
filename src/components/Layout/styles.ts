@@ -6,6 +6,11 @@ export const styles = {
         minHeight: { xs: "83vh", lg: "100vh" },
         py: { xs: 2, lg : 4.5 }
     },
+    containerStyle: { 
+        bgcolor: "custom.lightGray", 
+        maxWidth: "xl", 
+        marginInline: "auto"
+    },
     rightBoxStyle: {
         position: 'sticky',
         overflow: "scroll",

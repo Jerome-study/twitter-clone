@@ -24,7 +24,7 @@ export const AuthLayout = ({ children }: { children: ReactNode }) => {
     return (
         <TweetProvider>
             <Box sx={styles.bodyStyle}>
-                <Box sx={{ bgcolor: "custom.lightGray", maxWidth: "xl", marginInline: "auto"}}>
+                <Box sx={styles.containerStyle}>
                     <Grid container gap={isMobile ? 0 : 2} justifyContent={isMobile? "" : "center"} >
                         <Grid item lg={3} xs={12}>
                             <TopAndLeftSidebar />
