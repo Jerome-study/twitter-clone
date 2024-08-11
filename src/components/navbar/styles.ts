@@ -1,6 +1,7 @@
 export const styles = {
     appBarStyle: { 
-        backgroundColor: 'custom.blue', 
+        backgroundColor: 'custom.white',
+        boxShadow: 0, 
         py: 1 
     },
     emptBoxStyle: { 
@@ -38,7 +39,8 @@ export const styles = {
         fontSize: { xs: 13, lg: 17} 
     },
     bottomNavStyle: { 
-        position: 'fixed', 
+        position: 'fixed',
+        borderTop: "1.5px solid #d9d9d9", 
         bottom: 0, 
         left: 0, 
         right: 0 
