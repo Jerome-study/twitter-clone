@@ -14,24 +14,21 @@ export const MainHomeComponent = () => {
 
   return (
     <>
-      <Typography
-        hidden
-        sx={{
+      { !isMobile && <Typography sx={{
           p: 2,
-          display: { lg: 'block' }
+          bgcolor: "custom.white",
+          mb: 2,
+          borderRadius: 5
         }}
         component="h1"
         variant="h5"
         fontWeight={800}
       >
         Home
-      </Typography>
+      </Typography>}
 
-      <Box sx={{ borderTop: '1px solid #ccc', borderBottom: '1px solid #ccc' }}>
+      <Box sx={{ bgcolor: "custom.white", mb : 2, borderRadius: 5 }}>
         <TweetComposer />
-        {!isMobile && (
-          <Box py={1} bgcolor={"HomeComponentColors.divider"} />
-        )}
       </Box>
 
       {(tweetProviderLoading) ? (
@@ -42,7 +39,7 @@ export const MainHomeComponent = () => {
         </Box>
       ) :
         <>
-          <Box>
+          <Box sx={{ display: "grid", gap: 2, mt: { lg: 0}}}>
             <Suspense fallback={<CircularProgress />}>
               {[...currentUserTweets, ...currentUserFollowingTweets].sort((a,b) => b.createdAt - a.createdAt )?.map((tweet: any) => (
                 <LazyTweets currentUserTweet={tweet} userInfo={tweet.userInfo || userInfo} key={tweet.id} />
@@ -51,7 +48,6 @@ export const MainHomeComponent = () => {
           </Box>
         </>
       }
-
     </>
   );
 };
