@@ -2,33 +2,34 @@ export const styles = {
     appBarStyle: { 
         backgroundColor: 'custom.white',
         boxShadow: 0, 
-        py: 1 
+        pt: 1 
     },
     emptBoxStyle: { 
         flexGrow: 1 
     },
     listContainerStyle: { 
-        px: { xs: 2, lg: 5 } 
+        px: { xs: 0 },
+        py: { xs: 5, lg: 1 } 
     },
     listItemContainerStyle: {
         bgcolor: "transparent", 
         mb: 1
     },
     listNameStyle: { 
-        fontSize: { xs: 17, lg: 20 }, 
-        fontWeight: 700 
+        fontSize: { xs: 15, lg: 19 }, 
+        fontWeight: 500,
     },
     listIconStyle: { 
-        fontSize: { xs: 20, lg: 25 }, 
-        color: 'custom.blue' 
+        fontSize: 22, 
+        color: 'custom.black',
     },
     collapseListIconStyle: { 
         fontSize: { xs: 12, lg: 15}, 
-        color: 'custom.blue' 
+        color: 'custom.black' 
     },
     collapseListNameStyle: {
         fontSize: { xs: 13, lg: 15 }, 
-        fontWeight: 600
+        fontWeight: 500
     },
     tweetButtonStyle: { 
         borderRadius: 50, 
@@ -36,7 +37,8 @@ export const styles = {
         py:2,  
         mt : 2, 
         fontWeight: 700, 
-        fontSize: { xs: 13, lg: 17} 
+        fontSize: 15,
+        backgroundColor: "custom.blue"
     },
     bottomNavStyle: { 
         position: 'fixed',
