@@ -7,7 +7,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, Box, Avatar, ListItemAvatar } from '@mui/material';
 import { Logo } from '../mui/Logo';
 import { NavList } from './const';
 import { Link } from 'react-router-dom';
@@ -19,9 +19,10 @@ import { styles } from './styles';
 
 export const NavigationLeftList = () => {
     const [open, setOpen] = useState(false);
+    const avatarUrl = 'https://via.placeholder.com/150';
     const { logout } = useLogout();
     const { isMobile } = useResponsive();
-    const { focusInput } = useTweet()
+    const { focusInput, userInfo } = useTweet()
 
     const handleClick = () => {
         setOpen(!open);
@@ -30,15 +31,26 @@ export const NavigationLeftList = () => {
     return (
         <>
             <List sx={styles.listContainerStyle}>
-                <ListItem >
-                    <Logo />
-                </ListItem>
+                <Box sx={{ px: { xs: 2, lg: 5 }, mb: { lg: 1 } }}>
+                    <Logo isCenter={false} size={isMobile ? 27 : 40} />
+                </Box>
+                {isMobile &&
+                    <>
+                        <ListItemAvatar sx={{ px: 2, my : 2 }}>
+                            <Avatar alt="Avatar" src={avatarUrl} />
+                        </ListItemAvatar>
+                        <Box sx={{ px: 2.3, mb : 1 }}>
+                            <Typography sx={{ fontSize: 14, fontWeight: 700, }}>{userInfo.first_name + " " + userInfo.last_name}</Typography>
+                            <Typography sx={{ fontSize: 12, fontWeight: 400, color: "custom.darkGray" }}>{"@" + userInfo.username}</Typography>
+                        </Box>
+                    </>
+                }
 
                 {NavList.map((text) => (
-                    ((text.isLargeView && !isMobile ) || text.isMobileView && isMobile) &&
+                    ((text.isLargeView && !isMobile) || text.isMobileView && isMobile) &&
                     <Fragment key={text.name}>
                         <ListItem sx={styles.listItemContainerStyle} disablePadding>
-                            <ListItemButton component={Link} to={text.path || "#"} onClick={() => text?.isCollapse ? handleClick() : undefined}>
+                            <ListItemButton sx={{ px: { lg: 5 }}} component={Link} to={text.path || "#"} onClick={() => text?.isCollapse ? handleClick() : undefined}>
                                 <ListItemIcon>
                                     {text.icon}
                                 </ListItemIcon>
@@ -55,7 +67,7 @@ export const NavigationLeftList = () => {
                         {text.isCollapse &&
                             <Collapse in={open} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
-                                    <ListItemButton onClick={logout} sx={{ pl: 4 }}>
+                                    <ListItemButton onClick={logout} sx={{ px: 10 }}>
                                         <ListItemIcon>
                                             <LogoutIcon sx={styles.collapseListIconStyle} />
                                         </ListItemIcon>
@@ -68,9 +80,11 @@ export const NavigationLeftList = () => {
                                 </List>
                             </Collapse>
                         }
-                    </Fragment> 
+                    </Fragment>
                 ))}
-                {!isMobile && <Button onClick={() => focusInput()} variant='contained' sx={styles.tweetButtonStyle}>Tweet</Button>}
+                {!isMobile && <Box sx={{ px: 5}}>
+                        <Button onClick={() => focusInput()} variant='contained' sx={styles.tweetButtonStyle}>Tweet</Button>
+                    </Box>}
             </List>
         </>
     )
