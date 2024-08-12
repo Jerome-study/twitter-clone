@@ -17,7 +17,8 @@ declare module "@mui/material/styles" {
             lightGray: string,
             white: string,
             black: string,
-            blue: string
+            blue: string,
+            darkGray: string
         }
     }
 }
@@ -39,7 +40,8 @@ export const theme = createTheme({
             lightGray: "#f2f2f2",
             white: "#ffffff",
             black: "#000000",
-            blue: "#38b6ff"
+            blue: "#38b6ff",
+            darkGray: "#a6a6a6"
         }
     },
     typography: {
