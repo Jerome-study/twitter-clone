@@ -15,6 +15,7 @@ export const TopNav = () => {
             <TopBar toggleDrawer={toggleDrawer} />
             <LeftDrawerNav isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
             <Toolbar />
+            <Toolbar />
         </>
     )
 }
