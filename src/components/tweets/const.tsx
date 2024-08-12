@@ -1,23 +1,37 @@
-import { FavoriteOutlined, ModeCommentOutlined, RepeatOutlined, ShareOutlined } from '@mui/icons-material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import RepeatIcon from '@mui/icons-material/Repeat';
+
+
+const likeTweet = () => {
+    console.log("like tweet")
+}
+
+const openComments = () => {
+    console.log("Open comments")
+}
+
+const retweetTweet = () => {
+    console.log("retweet");
+}
 
 export const actionBar = [
     {
         name: "heart",
-        icon: <FavoriteOutlined sx={{ fontSize: 18}}/>,
-        hasCount: true
+        icon: <FavoriteBorderIcon sx={{ fontSize: 18, color: "custom.black" }}/>,
+        hasCount: true,
+        onclick: () => likeTweet()
     },
     {
         name: "comment",
-        icon: <ModeCommentOutlined sx={{ fontSize: 18}} />,
-        hasCount: true
+        icon: <ChatBubbleOutlineOutlinedIcon sx={{ fontSize: 18, color: "custom.black"}} />,
+        hasCount: true,
+        onclick: () => openComments()
     },
     {
         name: "repeat",
-        icon: <RepeatOutlined sx={{ fontSize: 18}}/>,
-        hasCount: true
-    },
-    {
-        name: "share",
-        icon: <ShareOutlined sx={{ fontSize: 18}}/>
-    },
+        icon: <RepeatIcon sx={{ fontSize: 18, color: "black"}}/>,
+        hasCount: true,
+        onclick: () => retweetTweet()
+    }
 ]

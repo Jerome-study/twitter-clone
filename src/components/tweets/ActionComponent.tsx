@@ -7,7 +7,7 @@ export const ActionComponent = () => {
             {actionBar.map((action, index : number) => {
                 return (
                     <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
-                        <IconButton aria-label="like" sx={{ p: 0 }}>
+                        <IconButton aria-label="like" sx={{ p: 0 }} onClick={action.onclick}>
                             {action.icon}
                         </IconButton>
                         {action.hasCount && <Typography variant='body2' sx={{ ml: 0.5 }}>
