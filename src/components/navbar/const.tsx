@@ -15,7 +15,6 @@ export const NavList = [
     name: "Home",
     path: "/",
     icon: <HomeOutlinedIcon sx={styles.listIconStyle} />,
-    isMobileView: true,
     isLargeView : true
   },
   {

@@ -17,7 +17,7 @@ export const styles = {
     },
     listNameStyle: { 
         fontSize: { xs: 15, lg: 19 }, 
-        fontWeight: 500,
+        fontWeight: 900,
     },
     listIconStyle: { 
         fontSize: 22, 
