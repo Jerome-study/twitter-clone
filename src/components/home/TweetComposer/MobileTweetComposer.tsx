@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { TweetComposerForm } from '../form/TweetComposer';
-import { BottomDrawer } from '../mui/BottomDrawer';
+import { TweetComposerForm } from './TweetComposer';
+import { BottomDrawer } from '../../mui/BottomDrawer';
 
 export const MobileTweetComposer = () => {
     const [isOpen, setIsOpen] = useState(false);

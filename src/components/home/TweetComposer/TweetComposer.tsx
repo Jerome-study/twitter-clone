@@ -1,15 +1,15 @@
 import { Box, TextField, IconButton, Button, Alert, Grid } from '@mui/material';
-import { ConfirmationModal } from '../Modal/Confirmation';
-import { useTweetComposer } from '../../hooks/useTweetComposer';
+import { ConfirmationModal } from '../../Modal/Confirmation';
+import { useTweetComposer } from '../../../hooks/useTweetComposer';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { LoadingBackDrop } from '../mui/loading/backdrop';
-import { useTweet } from '../../context/tweetProvider';
+import { LoadingBackDrop } from '../../mui/loading/backdrop';
+import { useTweet } from '../../../context/tweetProvider';
 
 
 export const TweetComposerForm = ({ toggleDrawer }: { toggleDrawer?: Function }) => {
     const { validateContent, openModal, tweetContent, error, loading, handleOpenModal, tweetImages, postTweet, handleImageChange, setTweetContent, clearTweetForm } = useTweetComposer({ toggleDrawer })
     const { inputRef } = useTweet()
-
+    
     return (
         <>
             {openModal && <ConfirmationModal openModal={openModal} handleOpenModal={handleOpenModal} action={postTweet} />}
