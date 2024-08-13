@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid'
 import Avatar from '@mui/material/Avatar';
 import { Logo } from '../mui/Logo';
 import { styles } from './styles';
-import { Typography } from '@mui/material';
+import { Typography, Container } from '@mui/material';
 
 interface Props {
     window?: () => Window;
@@ -36,21 +36,22 @@ export const TopBar = ({ toggleDrawer }: any) => {
 
             <HideOnScroll>
                 <AppBar sx={styles.appBarStyle}>
-                    <Toolbar sx={{ justifyContent: 'space-between', mb: 2 }}>
-                        <Avatar alt="Avatar" src={avatarUrl} onClick={toggleDrawer} />
-                        <Box sx={styles.emptBoxStyle} />
-                        <Logo size={26} inTopBar={true} />
-                        <Box sx={styles.emptBoxStyle} />
-                    </Toolbar>
-                    <Grid container justifyContent={"center"} gap={4}>
-                        <Grid xs={4} item sx={{ pb: 3, textAlign: "center", borderBottom: "3px solid red" }}>
-                            <Typography variant='h6' sx={{ color: "custom.black", fontWeight: 900, fontSize: 15 }}>For you</Typography>
+                    <Container sx={styles.containerStyle} disableGutters>
+                        <Toolbar sx={{ justifyContent: 'space-between', mb: 2 }}>
+                            <Avatar alt="Avatar" src={avatarUrl} onClick={toggleDrawer} />
+                            <Box sx={styles.emptBoxStyle} />
+                            <Logo size={26} inTopBar={true} />
+                            <Box sx={styles.emptBoxStyle} />
+                        </Toolbar>
+                        <Grid container justifyContent={"center"} gap={4}>
+                            <Grid xs={4} item sx={{ pb: 3, textAlign: "center", borderBottom: "3px solid red" }}>
+                                <Typography variant='h6' sx={{ color: "custom.black", fontWeight: 900, fontSize: 15 }}>For you</Typography>
+                            </Grid>
+                            <Grid xs={4} item sx={{ pb: 3, textAlign: "center" }}>
+                                <Typography variant='h6' sx={{ color: "custom.black", fontWeight: 900, fontSize: 15 }}>Following</Typography>
+                            </Grid>
                         </Grid>
-                        <Grid xs={4} item sx={{ pb: 3, textAlign: "center" }}>
-                            <Typography variant='h6' sx={{ color: "custom.black", fontWeight: 900, fontSize: 15 }}>Following</Typography>
-                        </Grid>
-                    </Grid>
-
+                    </Container>
                 </AppBar>
             </HideOnScroll>
         </>

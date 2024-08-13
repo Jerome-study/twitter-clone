@@ -4,6 +4,10 @@ export const styles = {
         boxShadow: 0, 
         pt: 1 
     },
+    containerStyle: { 
+        maxWidth: { xs: "100%", sm: "sm", lg: "xl", }, 
+        px : { sm : 2 }
+    },
     emptBoxStyle: { 
         flexGrow: 1 
     },
