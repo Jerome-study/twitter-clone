@@ -17,12 +17,6 @@ const Transition = forwardRef(function Transition(
 });
 
 export const ConfirmationModal = ({ openModal, handleOpenModal, action } : any) => {
-    
-
-    const handleAction = (e: any) => {
-        action();
-        handleOpenModal(e)
-    }
 
     return (
         <>
@@ -36,7 +30,7 @@ export const ConfirmationModal = ({ openModal, handleOpenModal, action } : any) 
                 <DialogTitle>{"Would you like to post this tweet?"}</DialogTitle>
                 <DialogActions>
                     <Button onClick={handleOpenModal}>Disagree</Button>
-                    <Button onClick={handleAction}>Agree</Button>
+                    <Button onClick={action}>Agree</Button>
                 </DialogActions>
             </Dialog>
         </>
