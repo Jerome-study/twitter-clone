@@ -1,17 +1,53 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import { useFireStore, useFirebaseStorage } from "../config/firebase";
 import { useAuth } from "../context/authProvider";
 import { tweetSchema } from "../models/zod";
 import { useTweet } from "../context/tweetProvider";
 
+interface TweetComposerProps {
+    tweetContent: string;
+    tweetImages: File[];
+    validateContent: string;
+    openModal: Boolean;
+    loading: Boolean;
+    error: string
+}
+
+const initialState: TweetComposerProps = {
+    tweetContent: "",
+    tweetImages: [],
+    validateContent: "",
+    openModal: false,
+    loading: false,
+    error: ""
+}
+
+const reducer = (state : TweetComposerProps, action : any) => {
+    switch(action.type) {
+        case 'SET_TWEET_CONTENT': 
+            return {...state, tweetContent: action.payload};
+        case 'ADD_TWEET_IMAGES':
+            return { ...state, tweetImages: [...state.tweetImages, ...action.payload] }
+        case 'SET_VALIDATE_CONTENT':
+            return { ...state, validateContent: action.payload }
+        case 'TOGGLE_MODAL' : 
+            return { ...state, openModal: !state.openModal }
+        case "SET_LOADING" :
+            return {...state, loading: action.payload }
+        case "SET_ERROR" : 
+            return { ...state, error: action.payload };
+        case "CLEAR_FORM": 
+            return { ...initialState }
+        default:
+            return state
+    }
+}
+
 export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) => {
+    const [state, dispatch] = useReducer(reducer, initialState)
+
     // States
-    const [tweetContent, setTweetContent] = useState("");
-    const [tweetImages, setTweetImages] = useState([])
-    const [validateContent, setValidateContent] = useState("");
-    const [openModal, setOpenModal] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("")
+    const { tweetContent, tweetImages, validateContent, openModal, loading, error } = state;
 
     // Custom Hooks 
     const { doc, setDoc, collection, db, serverTimestamp, getDoc } = useFireStore();
@@ -21,23 +57,23 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
     // Context Hook
     const { currentUser } = useAuth();
 
-    const handleOpenModal = (e: any) => {
+    const handleOpenModal = (e : any) => {
         e.preventDefault();
-        setOpenModal(prev => !prev)
+        dispatch({ type: 'TOGGLE_MODAL' })
     }
 
     const handleImageChange = (e: any) => {
         if (e.target.files.length > 0) {
             const selectedImages: any = Array.from(e.target.files);
-            setTweetImages(selectedImages);
+            dispatch({ type: "ADD_TWEET_IMAGES", payload: selectedImages })
         }
-        setTweetImages(prev => [...prev, ...tweetImages])
     };
 
     const postTweet = async () => {
-        setLoading(true);
-        setError("");
-        setValidateContent("");
+        dispatch({ type: "SET_LOADING", payload: true })
+        dispatch({ type: "SET_ERROR", payload: "" })
+        dispatch({ type: "SET_VALIDATE_CONTENT", payload: "" });
+        dispatch({ type: "TOGGLE_MODAL" })
         const tweet = {
             user_id: currentUser?.uid || "",
             content: tweetContent,
@@ -61,7 +97,7 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
                     })
                 );
             } 
-
+            
             // Insert tweet on tweets collection
             await setDoc(doc(db, 'tweets', tweetId), { ...tweet, image: imageUrls });
 
@@ -71,32 +107,23 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
             if (toggleDrawer) toggleDrawer(); // If in mobile view
 
             // Update The Current User tweets
-            setCurrentUserTweets((prev : any) => [...prev, { ...storedDoc.data() }])
+            setCurrentUserTweets((prev : any) => [...prev, { ...storedDoc.data(), id: tweetId }])
         } catch (error: any) {
-            setError("Something went wrog please try again later");
+            dispatch({ type: "SET_ERROR", payload: "Something went wrong, please try again later" })
         } finally {
-            setTweetContent("");
-            setTweetImages([])
-            setLoading(false);
+            dispatch({ type: "SET_LOADING", payload: false })
         }
     }
 
     const handleValidationErrors = (error: any) => {
         const errors = error?.errors;
-
-        if (errors.length > 1) {
-            setValidateContent(errors[1].message)
-        } else {
-            setValidateContent(errors[0].message)
-        }
-        console.log(errors)
+        const errorMessage = errors.length > 1 ? errors[1].message : errors[0].message;
+        dispatch({ type: "SET_VALIDATE_CONTENT", payload: errorMessage })
     };
 
     // Clear Tweet Form and Image
     const clearTweetForm = () => {
-        setTweetContent("");
-        setTweetImages([]);
-        setValidateContent("");
+        dispatch({ type: "CLEAR_FORM" })
     }
 
     return {
@@ -106,8 +133,8 @@ export const useTweetComposer = ({ toggleDrawer }: { toggleDrawer?: Function }) 
         loading,
         error,
         handleOpenModal,
+        setTweetContent: (value : string) => dispatch({ type: "SET_TWEET_CONTENT", payload: value }),
         postTweet,
-        setTweetContent,
         tweetImages,
         handleImageChange,
         clearTweetForm
