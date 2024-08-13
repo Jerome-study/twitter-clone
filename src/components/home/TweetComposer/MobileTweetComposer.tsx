@@ -13,9 +13,8 @@ export const MobileTweetComposer = () => {
     return (
         <>
             <Fab
-                color="primary"
                 aria-label="add"
-                style={{ position: 'fixed', bottom: 80, right: 16 }}
+                sx={{ position: 'fixed', bottom: 80, right: 16, fontWeight: 900, bgcolor: "custom.blue", color: "custom.white" }}
                 onClick={toggleDrawer}
             >
                 <AddIcon />

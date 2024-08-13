@@ -18,7 +18,7 @@ export const BottomDrawer = ({ children, isOpen, setIsOpen } : { children : Reac
                     },
                 }}
             >
-                <Box p={2}>
+                <Box>
                     { children }
                 </Box>
             </Drawer>
