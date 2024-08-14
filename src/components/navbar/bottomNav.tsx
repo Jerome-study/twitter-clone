@@ -5,11 +5,12 @@ import { BottomNavlist } from './const';
 import { useState } from 'react';
 import { styles } from './styles';
 
-export const BottomNavbar = ({ handleBottomNavAction } : { handleBottomNavAction : Function }) => {
+export const BottomNavbar = ({ handleBottomNavAction, homeCurrentPosition } : { handleBottomNavAction : Function, homeCurrentPosition : Function}) => {
     const [value, setValue] = useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         event.preventDefault();
+        homeCurrentPosition();
         setValue(newValue);
     };
    
