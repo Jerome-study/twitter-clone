@@ -2,14 +2,23 @@ export const styles = {
     bodyStyle: { 
         backgroundColor: "custom.lightGray",
     },
-    mainBoxStyle: { 
+    mainBoxStyle: (currentAction: string) => ({ 
         minHeight: { xs: "83vh", lg: "100vh" },
-        py: { xs: 2, lg : 4.5 }
-    },
+        py: { xs: 2, lg : 4.5 },
+        display: { xs: "flex", lg: "block"},
+        transform: currentAction === "Explore" ? "translateX(-100%)" : undefined,
+        transition: "0.1s"
+    }),
+    childrenStyle: (currentAction: string, isHome?: boolean | undefined) => ({ 
+        flexShrink: 0, 
+        width: "100%",
+        height: currentAction === "Explore" && isHome ? "90vh" : undefined
+    }),
     containerStyle: { 
         bgcolor: "custom.lightGray", 
         maxWidth: "xl", 
-        marginInline: "auto"
+        marginInline: "auto",
+        overflow: { xs: "hidden", lg: "unset"},
     },
     rightBoxStyle: {
         position: 'sticky',

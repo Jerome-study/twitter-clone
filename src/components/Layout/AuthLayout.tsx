@@ -1,36 +1,15 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { Grid, Box } from "@mui/material";
 import { MainContent } from "./MainContent";
 import { RightSidebar } from "./RightSide";
 import { TopAndLeftSidebar } from "./TopAndLeftSide";
 import { BottomNavbar } from "../Navbar/BottomNav";
-import { useResponsive } from "../../hooks/useResponsive";
 import { TweetProvider } from "../../context/tweetProvider";
 import { styles } from "./styles";
+import { useAuthActions } from "../../context/authActions";
 
 export const AuthLayout = ({ children }: { children: ReactNode }) => {
-    const { isMobile } = useResponsive();
-    const [currentAction, setCurrentAction] = useState("Home");
-    const [currentPosition, setCUrrentPosition] = useState<any>(null);
-    const handleBottomNavAction = (action: string) => {
-        setCurrentAction(action)
-    }
-
-    const homeCurrentPosition = () => {
-        if (currentAction === "Home") {
-            setCUrrentPosition(window.pageYOffset)
-            window.scrollTo(0, 0)
-        } else {
-           setTimeout(() => {
-            window.scrollTo(0, currentPosition)
-           }, 100)
-        }
-    }
-
-    useEffect(() => {
-        if (!isMobile) setCurrentAction("Home")
-    }, [isMobile])
-
+    const{ isMobile } = useAuthActions();
     return (
         <TweetProvider>
             <Box sx={styles.bodyStyle}>
@@ -40,7 +19,7 @@ export const AuthLayout = ({ children }: { children: ReactNode }) => {
                             <TopAndLeftSidebar />
                         </Grid>
                         <Grid item lg={5} xs={12}>
-                            <MainContent currentAction={currentAction}>
+                            <MainContent>
                                 {children}
                             </MainContent>
                         </Grid>
@@ -49,7 +28,7 @@ export const AuthLayout = ({ children }: { children: ReactNode }) => {
                                 <RightSidebar />
                             </Grid>
                             :
-                            <BottomNavbar homeCurrentPosition={homeCurrentPosition} handleBottomNavAction={handleBottomNavAction} />
+                            <BottomNavbar  />
                         }
                     </Grid>
                 </Box>

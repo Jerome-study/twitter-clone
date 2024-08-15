@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import { Logo } from '../mui/Logo';
 import { styles } from './styles';
 import { Typography, Container } from '@mui/material';
+import { useAuthActions } from '../../context/authActions';
 
 interface Props {
     window?: () => Window;
@@ -30,7 +31,7 @@ function HideOnScroll(props: Props) {
 
 export const TopBar = ({ toggleDrawer }: any) => {
     const avatarUrl = 'https://via.placeholder.com/150';
-
+    const { currentAction } = useAuthActions()
     return (
         <>
 
@@ -43,14 +44,16 @@ export const TopBar = ({ toggleDrawer }: any) => {
                             <Logo size={26} inTopBar={true} />
                             <Box sx={styles.emptBoxStyle} />
                         </Toolbar>
-                        <Grid container justifyContent={"center"} gap={4}>
-                            <Grid xs={4} item sx={{ pb: 3, textAlign: "center", borderBottom: "3px solid red" }}>
-                                <Typography variant='h6' sx={{ color: "custom.black", fontWeight: 900, fontSize: 15 }}>For you</Typography>
+                        {currentAction === "Home" &&
+                            <Grid container justifyContent={"center"} gap={4}>
+                                <Grid xs={4} item sx={{ pb: 3, textAlign: "center", borderBottom: "3px solid red" }}>
+                                    <Typography variant='h6' sx={{ color: "custom.black", fontWeight: 900, fontSize: 15 }}>For you</Typography>
+                                </Grid>
+                                <Grid xs={4} item sx={{ pb: 3, textAlign: "center" }}>
+                                    <Typography variant='h6' sx={{ color: "custom.black", fontWeight: 900, fontSize: 15 }}>Following</Typography>
+                                </Grid>
                             </Grid>
-                            <Grid xs={4} item sx={{ pb: 3, textAlign: "center" }}>
-                                <Typography variant='h6' sx={{ color: "custom.black", fontWeight: 900, fontSize: 15 }}>Following</Typography>
-                            </Grid>
-                        </Grid>
+                        }
                     </Container>
                 </AppBar>
             </HideOnScroll>
