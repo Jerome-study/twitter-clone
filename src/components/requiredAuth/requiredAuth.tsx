@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { useAuth } from "../../context/authProvider";
+import { AuthActions } from "../../context/authActions";
 import { Navigate } from "react-router-dom";
 import { AuthLayout } from "../Layout/AuthLayout";
 import { useLocation } from "react-router-dom";
@@ -16,11 +17,11 @@ export const RequiredAuth = ({ children }: { children: ReactNode }) => {
     if (isUsernameExist && isSetUpRoute) return <Navigate to={"/404"} />
 
     return (
-        <>
+        <AuthActions>
             <AuthLayout>
                 {children}
             </AuthLayout>
-        </>
+        </AuthActions>
     )
 
 }
