@@ -79,10 +79,10 @@ export const TweetComposerForm = ({ toggleDrawer }: { toggleDrawer?: Function })
                             {!isMobile &&
                                 <Button
                                     variant="contained"
-                                    sx={{ float: 'right',  borderRadius: 2, bgcolor: "custom.blue", fontWeight: "700" }}
+                                    sx={{ float: 'right',  borderRadius: 5, bgcolor: "custom.blue", fontWeight: 900 }}
                                     type='submit'
                                 >
-                                    TWEET
+                                    Tweet
                                 </Button>
                             }
                         </Box>

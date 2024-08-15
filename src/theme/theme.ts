@@ -39,13 +39,16 @@ export const theme = createTheme({
         custom: {
             lightGray: "#f2f2f2",
             white: "#ffffff",
-            black: "#000000",
-            blue: "#38b6ff",
+            black: "#14171A",
+            blue: "#1DA1F2",
             darkGray: "#a6a6a6"
         }
     },
     typography: {
         fontFamily: "Roboto, Arial, sans-serif",
+        allVariants: {
+            color: "#14171A"
+        },
         button : {
             textTransform : 'none'
         }
