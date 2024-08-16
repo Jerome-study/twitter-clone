@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
-import { useAuthActions } from "../../context/authActions"
+import { useResponsive } from "../../hooks/useResponsive";
 
 export const Header = () => {
-    const { isMobile } = useAuthActions();
+    const { isMobile } = useResponsive();
 
     return (
         <>

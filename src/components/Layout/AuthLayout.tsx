@@ -1,15 +1,14 @@
 import { ReactNode } from "react";
 import { Grid, Box } from "@mui/material";
-import { MainContent } from "./MainContent";
+import { MainContent}  from "./MainContent";
 import { RightSidebar } from "./RightSide";
 import { TopAndLeftSidebar } from "./TopAndLeftSide";
 import { BottomNavbar } from "../Navbar/BottomNav";
 import { TweetProvider } from "../../context/tweetProvider";
 import { styles } from "./styles";
-import { useAuthActions } from "../../context/authActions";
-
+import { useResponsive } from "../../hooks/useResponsive";
 export const AuthLayout = ({ children }: { children: ReactNode }) => {
-    const{ isMobile } = useAuthActions();
+    const{ isMobile } = useResponsive();
     return (
         <TweetProvider>
             <Box sx={styles.bodyStyle}>

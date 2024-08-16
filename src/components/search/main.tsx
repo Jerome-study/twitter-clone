@@ -53,19 +53,21 @@ export const MainSearchComponent = () => {
             }
 
             {(searchResult.length === 0 && !searchValue) &&
-                <Box sx={{ px: 2 }}>
+                <Box sx={{ px: 2, height: { xs: "57vh", lg: "unset" } }}>
                     <Typography variant="h5" mb={2} fontWeight={900}>Trending Now</Typography>
-                    {trendingData.map((trend, index) => {
-                        return (
-                            <Fragment key={index}>
-                                <Divider />
-                                <Paper key={index} sx={{ borderRadius: 0, py: 2 }} elevation={0}>
-                                    <Typography variant="body1" fontWeight={700}>{trend.topic}</Typography>
-                                    <Typography variant="subtitle2" color="text.secondary">{trend.tweets}</Typography>
-                                </Paper>
-                            </Fragment>
-                        )
-                    })}
+                    <Box sx={{ height: "100%", overflow: "scroll" }}>
+                        {trendingData.map((trend, index) => {
+                            return (
+                                <Fragment key={index}>
+                                    <Divider />
+                                    <Paper key={index} sx={{ borderRadius: 0, py: 2 }} elevation={0}>
+                                        <Typography variant="body1" fontWeight={700}>{trend.topic}</Typography>
+                                        <Typography variant="subtitle2" color="text.secondary">{trend.tweets}</Typography>
+                                    </Paper>
+                                </Fragment>
+                            )
+                        })}
+                    </Box>
                 </Box>
             }
 
@@ -73,7 +75,7 @@ export const MainSearchComponent = () => {
                 <Suspense fallback={<CircularProgress />}>
                     <Box>
                         {searchResult.map((user: UserInfoProps) => (
-                            user.id !== currentUser.uid && <UserCardLazy key={user.id} user={user}/>
+                            user.id !== currentUser.uid && <UserCardLazy key={user.id} user={user} />
                         ))}
                     </Box>
                 </Suspense>

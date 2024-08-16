@@ -3,10 +3,12 @@ import { Box } from "@mui/material";
 import { styles } from "./styles";
 import { MainSearchComponent } from "../Search/main";
 import { useAuthActions } from "../../context/authActions";
+import { useResponsive } from "../../hooks/useResponsive";
 
 export const MainContent = ({ children }: { children: ReactNode }) => {
     const isHome = true
-    const { isMobile, currentAction } = useAuthActions()
+    const { currentAction } = useAuthActions()
+    const { isMobile } = useResponsive();
     return (
         <Box sx={styles.mainBoxStyle(currentAction)}>
             <Box sx={styles.childrenStyle(currentAction, isHome)}>
@@ -19,3 +21,4 @@ export const MainContent = ({ children }: { children: ReactNode }) => {
         </Box>
     )
 };
+

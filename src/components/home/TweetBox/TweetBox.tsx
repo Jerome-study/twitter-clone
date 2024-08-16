@@ -1,10 +1,10 @@
 import { MobileTweetComposer } from "./MobileTweetComposer"
-import { useAuthActions } from "../../../context/authActions";
 import { TweetComposerForm } from "./TweetComposer";
 import { Box } from "@mui/material";
+import { useResponsive } from "../../../hooks/useResponsive";
 
 export const TweetBox = () => {
-    const { isMobile } = useAuthActions();
+    const { isMobile } = useResponsive();
     return (
         <>
             {isMobile ?

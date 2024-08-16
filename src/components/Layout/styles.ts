@@ -3,7 +3,7 @@ export const styles = {
         backgroundColor: "custom.lightGray",
     },
     mainBoxStyle: (currentAction: string) => ({ 
-        minHeight: { xs: "83vh", lg: "100vh" },
+        minHeight: { xs: "75vh", lg: "100vh" },
         py: { xs: 2, lg : 4.5 },
         display: { xs: "flex", lg: "block"},
         transform: currentAction === "Explore" ? "translateX(-100%)" : undefined,
@@ -12,7 +12,7 @@ export const styles = {
     childrenStyle: (currentAction: string, isHome?: boolean | undefined) => ({ 
         flexShrink: 0, 
         width: "100%",
-        height: currentAction === "Explore" && isHome ? "90vh" : undefined
+        height: currentAction === "Explore" && isHome ? "75vh" : "unset"
     }),
     containerStyle: { 
         bgcolor: "custom.lightGray", 
