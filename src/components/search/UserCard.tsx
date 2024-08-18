@@ -2,6 +2,7 @@ import { Card, CardHeader, Skeleton, Typography, Button } from "@mui/material"
 import { UserInfoProps } from "../../models/typescript"
 import { useAuth } from "../../context/authProvider"
 import { useFollowUser } from "../../hooks/useFollowUser";
+import { styles } from "./styles";
 
 export const UserCard = ({ user }: { user: UserInfoProps }) => {
     const { currentUser } = useAuth();
@@ -9,15 +10,15 @@ export const UserCard = ({ user }: { user: UserInfoProps }) => {
 
     return (
         <>
-            <Card sx={{ borderRadius: 0 }}>
+            <Card sx={styles.UserCardStyle}>
                 <CardHeader
                     avatar={
                         <Skeleton variant="circular" width={40} height={40} />
                     }
-                    title={<Typography>{user.first_name + " " + user.last_name}</Typography>}
-                    subheader={<Typography color="TweetsColor.username">@{user.username}</Typography>}
+                    title={<Typography sx={styles.UserCardHeaderStyle}>{user.first_name + " " + user.last_name}</Typography>}
+                    subheader={<Typography sx={styles.UserCardSubheaderStyle} color="TweetsColor.username">@{user.username}</Typography>}
                     action={
-                        <Button variant="contained" color="primary" onClick={handleFollowClick}>
+                        <Button variant="contained" sx={styles.UserCardActionStyle} onClick={handleFollowClick}>
                             {isFollowing ? "UNFOLLOW" : "FOLLOW"}
                         </Button>
                     }

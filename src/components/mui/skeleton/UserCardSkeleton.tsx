@@ -4,7 +4,7 @@ import { Card, CardHeader, Skeleton } from "@mui/material"
 export const UserCardSkeleton = () => {
     return(
         <>
-            <Card sx={{ borderRadius: 0 }}>
+            <Card sx={{ borderRadius: 4 }}>
                 <CardHeader
                         avatar={
                             <Skeleton variant="circular" width={40} height={40} />
