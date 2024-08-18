@@ -1,30 +1,16 @@
-import { Fragment, lazy, Suspense, useState } from "react"
-import { TextField, Typography, Paper, Box, Divider } from '@mui/material';
-import { UserCardSkeleton } from "../mui/skeleton/UserCardSkeleton";
-import { CircularProgress } from '@mui/material';
-import { UserInfoProps } from "../../models/typescript";
+import { useState } from "react"
+import { TextField } from '@mui/material';
 import { useSearch } from "../../hooks/useSearch";
-import { useAuth } from "../../context/authProvider";
-
-const UserCardLazy = lazy(() => import("./UserCard"))
-
-const trendingData = [
-    { topic: "#ReactJS", tweets: "120K Tweets" },
-    { topic: "#JavaScript", tweets: "80K Tweets" },
-    { topic: "#Firebase", tweets: "50K Tweets" },
-    { topic: "#WebDevelopment", tweets: "60K Tweets" },
-    { topic: "#Coding", tweets: "70K Tweets" },
-    { topic: "#NodeJS", tweets: "45K Tweets" },
-    { topic: "#CSS", tweets: "30K Tweets" },
-    { topic: "#HTML", tweets: "25K Tweets" },
-    { topic: "#Frontend", tweets: "20K Tweets" },
-    { topic: "#Backend", tweets: "15K Tweets" },
-];
+import { BodyContainer } from "./BodyContainer";
+import { TrendingSection } from "./TrendingSection";
+import { NoResultSection } from "./NoResult";
+import { UserCardSection } from "./UserCardSection";
+import { UserCardSkeletonMultiple } from "../mui/skeleton/UserCardSkeletonMultiple";
+import { styles } from "./styles";
 
 export const MainSearchComponent = () => {
     const [searchValue, setSearchValue] = useState('');
     const { searchResult, loading } = useSearch(searchValue);
-    const { currentUser } = useAuth();
     const handleChangeValue = (e: any) => {
         setSearchValue(e.target.value)
     }
@@ -37,57 +23,27 @@ export const MainSearchComponent = () => {
                 placeholder="Search SocialTweet User"
                 value={searchValue}
                 onChange={handleChangeValue}
-                sx={{
-                    p: 2,
-                    width: '100%',
-                    '& .MuiOutlinedInput-root': {
-                        borderRadius: 20
-                    }
-                }}
+                sx={styles.TextFieldStyle}
             />
 
-            {(loading && searchValue) &&
-                Array.from(new Array(10)).map((_, index) => (
-                    <UserCardSkeleton key={index} />
-                ))
-            }
+            <BodyContainer>
+                {(searchResult.length === 0 && !searchValue) &&
+                    <TrendingSection />
+                }
 
-            {(searchResult.length === 0 && !searchValue) &&
-                <Box sx={{ px: 2, height: { xs: "57vh", lg: "unset" } }}>
-                    <Typography variant="h5" mb={2} fontWeight={900}>Trending Now</Typography>
-                    <Box sx={{ height: "100%", overflow: "scroll" }}>
-                        {trendingData.map((trend, index) => {
-                            return (
-                                <Fragment key={index}>
-                                    <Divider />
-                                    <Paper key={index} sx={{ borderRadius: 0, py: 2 }} elevation={0}>
-                                        <Typography variant="body1" fontWeight={700}>{trend.topic}</Typography>
-                                        <Typography variant="subtitle2" color="text.secondary">{trend.tweets}</Typography>
-                                    </Paper>
-                                </Fragment>
-                            )
-                        })}
-                    </Box>
-                </Box>
-            }
+                {(searchResult.length === 0 && searchValue && !loading) &&
+                    <NoResultSection />
+                }
 
-            {(searchResult.length > 0 && !loading) &&
-                <Suspense fallback={<CircularProgress />}>
-                    <Box>
-                        {searchResult.map((user: UserInfoProps) => (
-                            user.id !== currentUser.uid && <UserCardLazy key={user.id} user={user} />
-                        ))}
-                    </Box>
-                </Suspense>
-            }
+                {(searchResult.length > 0 && !loading) &&
+                    <UserCardSection searchResult={searchResult} />
+                }
 
-            {(searchResult.length === 0 && searchValue) &&
-                <Box sx={{ display: "flex", height: "70vh", alignItems: "center" }}>
-                    <Typography fontWeight={600} align="center" variant="subtitle2">
-                        No Results found, please check your input if it is type correctly
-                    </Typography>
-                </Box>
-            }
+                {(loading && searchValue) &&
+                    <UserCardSkeletonMultiple />
+                }
+
+            </BodyContainer>
 
         </>
     )
